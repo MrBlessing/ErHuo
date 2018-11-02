@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="tag_image">
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:layout_centerInParent">true</item>
+    </style>
+
+    <style name="Image_Text_text">
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="Image_Text_image">
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:layout_margin">5dp</item>
+    </style>
+    
+    
+    <style name="Cutting_line">
+        <item name="android:background">#f1efef</item>
+    </style>
+
+    <style name="release_list_container">
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:paddingBottom">20dp</item>
+    </style>
+
+    <style name="popup_release_price_text">
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="fragment_personal_center_top">
+        <item name="android:background">@drawable/corner</item>
+        <item name="android:layout_marginBottom">15dp</item>
+        <item name="android:layout_height">35dp</item>
+    </style>
+
+    <style name="fragment_personal_center_text">
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+
+    <style name="mainColor">
+        <item name="android:background">#48994a</item>
+    </style>
+
+    <style name="main_EditText">
+        <item name="android:background">@null</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="main_Text">
+        <item name="android:textSize">15sp</item>
+    </style>
+
+</resources>
