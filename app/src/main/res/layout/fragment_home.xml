@@ -1,22 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout
+    android:id="@+id/fragment_home_main_container"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#f1efef"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
+    android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        style="@style/mainColor">
 
-        <android.support.v7.widget.Toolbar
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="?android:attr/actionBarSize"
-            android:background="?android:attr/colorPrimary">
+            android:layout_height="70dp"
+            app:layout_scrollFlags="scroll|enterAlways|snap"
+            android:paddingTop="20dp">
 
-        </android.support.v7.widget.Toolbar>
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:src="@mipmap/logo"
+                android:layout_alignParentLeft="true"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true">
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/find_left"
+                    android:scaleType="fitXY"/>
+                <LinearLayout
+                    android:layout_width="200dp"
+                    android:layout_height="35dp"
+                    android:orientation="horizontal"
+                    android:background="@drawable/find_middle">
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/zoom"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:text="搜索"/>
+                </LinearLayout>
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/find_right"
+                    android:scaleType="fitXY"/>
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
@@ -30,74 +78,41 @@
             android:focusable="true"
             android:focusableInTouchMode="true">
 
-            <com.bigkoo.convenientbanner.ConvenientBanner
-                android:id="@+id/fragment_home_ConvenientBanner"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_margin="10dp"
-                android:focusable="true"
-                app:canLoop="true">
+                <com.bigkoo.convenientbanner.ConvenientBanner
+                    android:id="@+id/fragment_home_ConvenientBanner"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_margin="10dp"
+                    android:focusable="true"
+                    app:canLoop="true">
 
-            </com.bigkoo.convenientbanner.ConvenientBanner>
+                </com.bigkoo.convenientbanner.ConvenientBanner>
 
-            <include layout="@layout/fragment_home_tag"/>
+                <include layout="@layout/fragment_home_tag"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:layout_margin="5dp"
-                android:background="#fff">
-
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="商品推荐"
-                    style="@style/main_Text"/>
+                    android:padding="10dp"
+                    android:layout_margin="5dp"
+                    android:background="#fff">
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="商品推荐"
+                        style="@style/main_Text"/>
+
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/fragment_home_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                </android.support.v7.widget.RecyclerView>
+
+                 <include layout="@layout/base_line"/>
             </LinearLayout>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/fragment_home_recycler"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            </android.support.v7.widget.RecyclerView>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                style="@style/Cutting_line"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="10dp">
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="3"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/line"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="这是我的底线"/>
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="3"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/line"/>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                style="@style/Cutting_line"/>
-        </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
 

@@ -6,19 +6,32 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent">
 
-   <android.support.design.widget.AppBarLayout
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content">
-       <android.support.v7.widget.Toolbar
-           android:layout_width="match_parent"
-           android:layout_height="?android:attr/actionBarSize"
-           android:background="?android:attr/colorPrimary">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/mainColor">
 
-       </android.support.v7.widget.Toolbar>
-   </android.support.design.widget.AppBarLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:paddingTop="20dp"
+            app:layout_scrollFlags="scroll|enterAlways|snap">
+
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:text="发布"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:background="#fff"
+                style="@style/main_Button"
+                android:layout_marginTop="10dp"/>
+        </RelativeLayout>
+
+
+    </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -269,7 +282,7 @@
                         android:layout_alignParentLeft="true"
                         style="@style/main_Text"
                         android:text="是否匿名" />
-                        <RadioGroup
+                    <RadioGroup
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
@@ -286,19 +299,16 @@
                                 android:layout_height="wrap_content"
                                 android:text="否"/>
                         </RadioGroup>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        style="@style/Cutting_line"/>
                 </RelativeLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
-                    style="@style/Cutting_line"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="100dp"/>
+
             </LinearLayout>
 
-
+            <include layout="@layout/base_line"/>
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>

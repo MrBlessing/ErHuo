@@ -47,7 +47,7 @@
     </style>
 
     <style name="mainColor">
-        <item name="android:background">#48994a</item>
+        <item name="android:background">#bbe7e4</item>
     </style>
 
     <style name="main_EditText">
@@ -57,6 +57,10 @@
 
     <style name="main_Text">
         <item name="android:textSize">15sp</item>
+    </style>
+    <style name="main_Button">
+        <item name="android:textSize">15sp</item>
+        <item name="android:background">@drawable/corner</item>
     </style>
 
 </resources>

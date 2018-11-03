@@ -6,13 +6,15 @@ public class ImageUrl {
 
 
     /**
-     * info : 图片名查询成功
-     * start : http://192.168.137.1/taoke/1.jpg
+     * info : 图片地址查询成功
+     * start : http://192.168.137.1/taoke/启动页面.png
      * banner : [{"banner":"http://192.168.137.1/taoke/1.jpg"},{"banner":"http://192.168.137.1/taoke/2.jpg"},{"banner":"http://192.168.137.1/taoke/3.png"},{"banner":"http://192.168.137.1/taoke/4.png"},{"banner":"http://192.168.137.1/taoke/5.jpg"}]
+     * homeBackground : http://192.168.137.1/taoke/homeBackground.png
      */
 
     private String info;
     private String start;
+    private String homeBackground;
     private List<BannerBean> banner;
 
     public String getInfo() {
@@ -29,6 +31,14 @@ public class ImageUrl {
 
     public void setStart(String start) {
         this.start = start;
+    }
+
+    public String getHomeBackground() {
+        return homeBackground;
+    }
+
+    public void setHomeBackground(String homeBackground) {
+        this.homeBackground = homeBackground;
     }
 
     public List<BannerBean> getBanner() {

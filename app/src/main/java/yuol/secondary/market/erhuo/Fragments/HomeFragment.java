@@ -3,6 +3,7 @@ package yuol.secondary.market.erhuo.Fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,7 +35,6 @@ public class HomeFragment extends Fragment {
     private Context context = ActivityCollector.currentActivity();
     private RecyclerView recyclerView;
     private static final String TAG = "HomeFragment";
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
@@ -49,9 +49,17 @@ public class HomeFragment extends Fragment {
     }
 
     private void setEvent() {
+        //setBackground();
         setConvenientBanner();
         setRecyclerView();
     }
+
+//    private void setBackground() {
+//        String json = PreferenceManager.getDefaultSharedPreferences(context).getString("home_background",null);
+//        if(json!=null){
+//            ImageUrl imageUrl =  new Gson().fromJson(json,ImageUrl.class);
+//        }
+//    }
 
     private void setRecyclerView() {
         //为测试手动产生数据
