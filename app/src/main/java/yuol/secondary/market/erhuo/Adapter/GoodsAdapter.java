@@ -33,10 +33,23 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.LocalAdapter
     }
 
     @Override
-    public void onBindViewHolder(@NonNull LocalAdapter localAdapter, int i) {
+    public void onBindViewHolder(@NonNull final LocalAdapter localAdapter, int i) {
         localAdapter.price.setText(data.get(i).getPrice());
         localAdapter.title.setText(data.get(i).getName());
         Glide.with(context).load(data.get(i).getImage()).into(localAdapter.imageView);
+        localAdapter.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onItemClick(localAdapter.itemView,localAdapter.getAdapterPosition());
+            }
+        });
+        localAdapter.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                listener.onItemLongClick(localAdapter.itemView,localAdapter.getAdapterPosition());
+                return true;
+            }
+        });
     }
 
     @Override
@@ -50,15 +63,15 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.LocalAdapter
 
     //设置回调接口
     public interface onItemClickListener{
-        void onItemClick(View view,int position,String data);
+        void onItemClick(View view,int position);
         void onItemLongClick(View view,int position);
     }
 
-    public class LocalAdapter extends RecyclerView.ViewHolder{
+    class LocalAdapter extends RecyclerView.ViewHolder{
         private ImageView imageView;
         private TextView title;
         private TextView price;
-        public LocalAdapter(@NonNull View itemView) {
+        LocalAdapter(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.item_home_goods_image);
             title = itemView.findViewById(R.id.item_home_goods_title);

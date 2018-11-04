@@ -27,7 +27,7 @@ import yuol.secondary.market.erhuo.bean.ImageUrl;
 public class StartActivity extends BasedActivity {
 
     //限时跳转
-    private CountDownTimer timer = new CountDownTimer(3000,3000) {
+    private CountDownTimer timer = new CountDownTimer(300,3000) {
         @Override
         public void onTick(long l) {
 
@@ -56,6 +56,7 @@ public class StartActivity extends BasedActivity {
         if(json!=null){
             //解析json数据
             Gson gson = new Gson();
+            LogUtil.d(TAG,json);
             ImageUrl imageUrl = gson.fromJson(json,ImageUrl.class);
             Glide.with(this)
                     .load(imageUrl.getStart())

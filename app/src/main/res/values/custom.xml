@@ -35,7 +35,7 @@
     </style>
 
     <style name="fragment_personal_center_top">
-        <item name="android:background">@drawable/corner</item>
+        <item name="android:background">@drawable/corner_button</item>
         <item name="android:layout_marginBottom">15dp</item>
         <item name="android:layout_height">35dp</item>
     </style>
@@ -60,7 +60,7 @@
     </style>
     <style name="main_Button">
         <item name="android:textSize">15sp</item>
-        <item name="android:background">@drawable/corner</item>
+        <item name="android:background">@drawable/corner_button</item>
     </style>
 
 </resources>

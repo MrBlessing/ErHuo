@@ -14,7 +14,6 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            app:layout_scrollFlags="scroll|enterAlways|snap"
             android:paddingTop="20dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -32,11 +31,12 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="10dp"
                 android:layout_alignParentRight="true">
+
                 <ImageView
                     android:layout_width="10dp"
                     android:layout_height="35dp"
                     android:src="@drawable/find_left"
-                    android:scaleType="fitXY"/>
+                    android:scaleType="fitXY" />
                 <LinearLayout
                     android:layout_width="200dp"
                     android:layout_height="35dp"
@@ -67,23 +67,30 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.widget.NestedScrollView
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/fragment_home_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <LinearLayout
-            android:orientation="vertical"
+
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:focusable="true"
-            android:focusableInTouchMode="true">
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:background="#f1efef">
 
                 <com.bigkoo.convenientbanner.ConvenientBanner
                     android:id="@+id/fragment_home_ConvenientBanner"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:layout_margin="10dp"
-                    android:focusable="true"
                     app:canLoop="true">
 
                 </com.bigkoo.convenientbanner.ConvenientBanner>
@@ -93,8 +100,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:layout_margin="5dp"
+                    android:padding="15dp"
                     android:background="#fff">
 
                     <TextView
@@ -108,12 +114,16 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/fragment_home_recycler"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content">
+
                 </android.support.v7.widget.RecyclerView>
 
-                 <include layout="@layout/base_line"/>
+                <include layout="@layout/base_line"/>
+
             </LinearLayout>
 
-    </android.support.v4.widget.NestedScrollView>
+        </android.support.v4.widget.NestedScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
 
 </android.support.design.widget.CoordinatorLayout>

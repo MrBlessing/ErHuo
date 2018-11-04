@@ -29,14 +29,15 @@ public class SortRecyclerAdapter extends RecyclerView.Adapter<SortRecyclerAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final LocalHolder localHolder, final int i) {
+    public void onBindViewHolder(@NonNull final LocalHolder localHolder,  int i) {
+        final int index = localHolder.getAdapterPosition();
         localHolder.tag.setText(data.get(i));
         localHolder.container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(listener!=null){
                     //调用监听器方法
-                    listener.onItemClick(localHolder.itemView,i,data.get(i));
+                    listener.onItemClick(localHolder.itemView,index,data.get(index));
                 }
             }
         });
@@ -45,7 +46,7 @@ public class SortRecyclerAdapter extends RecyclerView.Adapter<SortRecyclerAdapte
             public boolean onLongClick(View view) {
                 if(listener!=null){
                     //调用监听器方法
-                    listener.onItemLongClick(localHolder.itemView,i);
+                    listener.onItemLongClick(localHolder.itemView,index);
                 }
                 return true;
             }
