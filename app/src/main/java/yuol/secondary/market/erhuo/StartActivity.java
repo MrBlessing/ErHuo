@@ -71,6 +71,7 @@ public class StartActivity extends BasedActivity {
         ////提前加载图片Json数据,并保存
         NetworkUtils.loadJson("http://192.168.137.1/taoke/ImageUrl.json","Json_imageUrl");
         NetworkUtils.loadJson("http://192.168.137.1/taoke/category.json","Json_category");
+        NetworkUtils.loadJson("http://192.168.137.1/taoke/goodsInfo.json","Json_goodsInfo");
     }
 
     @Override

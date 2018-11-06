@@ -1,6 +1,7 @@
 package yuol.secondary.market.erhuo.Utils;
 
 import android.content.IntentFilter;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
@@ -16,9 +17,10 @@ public class BasedActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        //将每一个页面加入ActivityCollector中进行管理
         ActivityCollector.addActivity(this);
+        super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//禁止所有页面横屏
+        //将每一个页面加入ActivityCollector中进行管理
     }
 
     @Override

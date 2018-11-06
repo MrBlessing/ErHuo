@@ -19,7 +19,10 @@ public class ActivityCollector {
         }
     }
     public static Activity currentActivity(){
-        Activity activity=activities.getLast();
-        return activity;
+        if(activities != null){
+            Activity activity=activities.getLast();
+            return activity;
+        }
+      return null;
     }
 }

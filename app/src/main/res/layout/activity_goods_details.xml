@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/goods_details_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/as"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -41,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <include layout="@layout/item_goods_details_top"/>
+                <include layout="@layout/item_goods_details_card"/>
 
                 <RelativeLayout
                     android:layout_width="220dp"

@@ -87,7 +87,7 @@ public class NetworkUtils {
                 ActivityCollector.currentActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(ActivityCollector.currentActivity(), "网络请求失败", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ActivityCollector.currentActivity(), "请检查你的网络", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

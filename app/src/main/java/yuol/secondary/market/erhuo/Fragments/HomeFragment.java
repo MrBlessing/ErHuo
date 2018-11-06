@@ -3,6 +3,7 @@ package yuol.secondary.market.erhuo.Fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.CoordinatorLayout;
@@ -22,13 +23,19 @@ import com.bigkoo.convenientbanner.holder.Holder;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 import yuol.secondary.market.erhuo.Adapter.GoodsAdapter;
 import yuol.secondary.market.erhuo.GoodsDetails;
 import yuol.secondary.market.erhuo.R;
 import yuol.secondary.market.erhuo.Utils.ActivityCollector;
+import yuol.secondary.market.erhuo.Utils.FileUtils;
+import yuol.secondary.market.erhuo.Utils.GoodsList;
 import yuol.secondary.market.erhuo.Utils.LogUtil;
 import yuol.secondary.market.erhuo.Utils.NetworkUtils;
 import yuol.secondary.market.erhuo.bean.GoodsInfo;
@@ -37,12 +44,13 @@ import yuol.secondary.market.erhuo.bean.ImageUrl;
 public class HomeFragment extends Fragment {
     private View view;
     private ConvenientBanner convenientBanner;
-    private Context context = ActivityCollector.currentActivity();
+    private Context context ;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout refresh;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        context = ActivityCollector.currentActivity();
         view = inflater.inflate(R.layout.fragment_home, container, false);
         findView();
         setEvent();
@@ -70,32 +78,17 @@ public class HomeFragment extends Fragment {
     }
 
     private void setRecyclerView() {
-        //为测试手动产生数据
-        GoodsInfo info = new GoodsInfo();
-        info.setImage("http://192.168.137.1/taoke/start.png");
-        info.setName("贱卖葫芦娃");
-        info.setPrice("9.90");
-        List<GoodsInfo> data = new ArrayList<>();
-        for(int i = 0 ; i<10 ;i++){
-            data.add(info);
+        String json = PreferenceManager.getDefaultSharedPreferences(context).getString("Json_goodsInfo",null);
+        if(json!=null){
+            GoodsInfo goodsInfo =  new Gson().fromJson(json,GoodsInfo.class);
+            GoodsList.setGoodsList(context,recyclerView,goodsInfo.getData());
+        }else {
+            Toast.makeText(context, "商品信息加载失败", Toast.LENGTH_SHORT).show();
+            //商品加载失败之后强制刷新
+            if(!refresh.isRefreshing()){
+                new RefreshListener().onRefresh();
+            }
         }
-        GoodsAdapter adapter = new GoodsAdapter(data);
-        GridLayoutManager manager = new GridLayoutManager(context,2);
-        recyclerView.setLayoutManager(manager);
-        recyclerView.setAdapter(adapter);
-        //设置每一个item的点击事件
-        adapter.setOnItemClickListener(new GoodsAdapter.onItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                Intent intent = new Intent(context, GoodsDetails.class);
-                startActivity(intent);
-            }
-
-            @Override
-            public void onItemLongClick(View view, int position) {
-
-            }
-        });
     }
 
     private void setConvenientBanner() {
@@ -143,21 +136,40 @@ public class HomeFragment extends Fragment {
 
     //刷新的事件接口
     class RefreshListener implements SwipeRefreshLayout.OnRefreshListener{
-
         @Override
         public void onRefresh() {
             Toast.makeText(context, "努力加载中~", Toast.LENGTH_SHORT).show();
-            new Thread(new Runnable() {
+
+            //重新进行网络请求
+            NetworkUtils.request("http://192.168.137.1/taoke/goodsInfo.json", new Callback() {
                 @Override
-                public void run() {
-                    try {
-                        Thread.sleep(3000);
-                        refresh.setRefreshing(false);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                public void onFailure(Call call, IOException e) {
+                    ActivityCollector.currentActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(context, "请检查你的网络", Toast.LENGTH_SHORT).show();
+                            refresh.setRefreshing(false);
+                        }
+                    });
                 }
-            }).start();
+
+                @Override
+                public void onResponse(Call call, final Response response) throws IOException {
+                    //保存数据
+                    FileUtils.saveByPeference(ActivityCollector.currentActivity(), "Json_goodsInfo", response.body().string());
+                    ActivityCollector.currentActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(context, "数据更新完成", Toast.LENGTH_SHORT).show();
+                            //重新将数据加载到页面中
+                            setRecyclerView();
+                            refresh.setRefreshing(false);
+                        }
+                    });
+                }
+            });
         }
+
     }
+
 }

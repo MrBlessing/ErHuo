@@ -146,13 +146,7 @@
                 android:layout_height="10dp"
                 style="@style/Cutting_line"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_margin="5dp"
-                android:background="#fff">
-
-            </LinearLayout>
+            <include layout="@layout/item_fragment_personal_center_middle"/>
 
             <TextView
                 android:background="#fff"

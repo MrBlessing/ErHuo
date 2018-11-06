@@ -17,10 +17,11 @@ import yuol.secondary.market.erhuo.Utils.ActivityCollector;
 
 public class PersonalCenterFragment extends Fragment {
 private View view;
-private Context context= ActivityCollector.currentActivity();
+private Context context;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        context = ActivityCollector.currentActivity();
         view=inflater.inflate(R.layout.fragment_personal_center, container, false);
         setEvent();
         final FrameLayout login = view.findViewById(R.id.personal_center_login);

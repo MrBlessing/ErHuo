@@ -45,14 +45,17 @@
                     android:layout_height="wrap_content"
                     style="@style/main_Text"
                     android:layout_alignParentBottom="true"
-                    android:text="商品名称"
+                    android:text="很长很长很长很长很长很长很长很长很长很长很长很长"
+                    android:maxEms="20"
+                    android:singleLine="true"
+                    android:ellipsize="end"
                     android:textSize="20sp"
                     android:textColor="#fff"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="124dp"
+                    android:layout_marginLeft="100dp"
                     style="@style/main_Text"
                     android:text="原价"
                     android:textColor="#fef564"/>
@@ -67,46 +70,25 @@
                 <View
                     android:layout_width="3dp"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="5dp"
                     android:background="#fff"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginRight="10dp">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="35dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="校区"
-                            android:textSize="12sp"
-                            android:layout_alignParentLeft="true"
-                            android:textColor="#fff"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="12sp"
-                            android:layout_alignParentBottom="true"
-                            android:text="信誉分"
-                            android:textColor="#fff"/>
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:src="@mipmap/logo"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginRight="5dp"/>
-
-                    </RelativeLayout>
-
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/item_goods_details_card_info"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:src="@mipmap/logo"
+                        android:layout_gravity="center" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
-                        android:text="商家名称"
-                        android:textSize="20sp"
+                        android:layout_gravity="center"
+                        style="@style/Image_Text_text"
+                        android:text="商家详情"
                         android:textColor="#fff"/>
 
                 </LinearLayout>

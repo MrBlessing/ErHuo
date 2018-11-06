@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.io.Serializable;
 import java.util.List;
 
 import yuol.secondary.market.erhuo.R;
@@ -19,10 +20,10 @@ import yuol.secondary.market.erhuo.bean.GoodsInfo;
 
 public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.LocalAdapter> {
     private onItemClickListener listener;
-    private List<GoodsInfo> data;
+    private List<GoodsInfo.DataBean> data;
     private Context context = ActivityCollector.currentActivity();
 
-    public GoodsAdapter(List<GoodsInfo> goodsAdapters){
+    public GoodsAdapter(List<GoodsInfo.DataBean> goodsAdapters){
         this.data = goodsAdapters;
     }
     @NonNull
@@ -34,9 +35,10 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.LocalAdapter
 
     @Override
     public void onBindViewHolder(@NonNull final LocalAdapter localAdapter, int i) {
-        localAdapter.price.setText(data.get(i).getPrice());
-        localAdapter.title.setText(data.get(i).getName());
-        Glide.with(context).load(data.get(i).getImage()).into(localAdapter.imageView);
+        GoodsInfo.DataBean info = data.get(i);
+        localAdapter.price.setText(info.getPrice());
+        localAdapter.title.setText(info.getName());
+        Glide.with(context).load(info.getPic()).into(localAdapter.imageView);
         localAdapter.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,7 +69,7 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.LocalAdapter
         void onItemLongClick(View view,int position);
     }
 
-    class LocalAdapter extends RecyclerView.ViewHolder{
+    class LocalAdapter extends RecyclerView.ViewHolder {
         private ImageView imageView;
         private TextView title;
         private TextView price;

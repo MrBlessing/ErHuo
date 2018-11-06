@@ -39,11 +39,12 @@ public class ReleaseFragment extends Fragment {
     private TextView showPrice;
     private TextView showSort;
     private TextView showCondition;
-    private Context context = ActivityCollector.currentActivity();
+    private Context context ;
     private static final String TAG = "ReleaseFragment";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        context = ActivityCollector.currentActivity();
         view = inflater.inflate(R.layout.fragment_release, container, false);
         findView();
         setEvent();
