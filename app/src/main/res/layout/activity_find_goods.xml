@@ -4,23 +4,61 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Utils.FindGoods">
+    tools:context=".FindGoods"
+    android:background="#f1efef">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:paddingTop="20dp"
-        style="@style/mainColor">
+        android:layout_height="75dp"
+        style="@style/main_statusBar">
 
         <ImageView
+            android:id="@+id/find_goods_back"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:src="@drawable/back"
             android:scaleType="fitXY"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_marginTop="15dp"
-            android:layout_marginLeft="10dp"/>
+            android:layout_marginStart="10dp"/>
 
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/corner_card">
+
+        <EditText
+            android:id="@+id/find_goods_content"
+            android:layout_width="220dp"
+            android:layout_height="match_parent"
+            style="@style/main_EditText"
+            android:singleLine="true"
+            android:maxLength="20"
+            android:layout_marginStart="5dp"
+            android:layout_alignParentStart="true" />
+        
+        <RelativeLayout
+            android:id="@+id/find_goods_find"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            style="@style/mainColor">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="搜索"
+                style="@style/main_Text"
+                android:layout_centerInParent="true"
+                android:textColor="#fff"/>
+
+        </RelativeLayout>
+        
     </RelativeLayout>
 
     <FrameLayout

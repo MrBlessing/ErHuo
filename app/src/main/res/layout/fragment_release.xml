@@ -4,17 +4,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.ReleaseFragment"
     android:layout_height="match_parent"
-    android:layout_width="match_parent">
+    android:layout_width="match_parent"
+    android:background="#fff">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/mainColor">
+        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:paddingTop="20dp"
+            android:layout_height="75dp"
+            style="@style/main_statusBar"
             app:layout_scrollFlags="scroll|enterAlways|snap">
 
             <Button
@@ -23,7 +23,6 @@
                 android:text="发布"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="10dp"
-                android:background="#fff"
                 style="@style/main_Button"
                 android:layout_marginTop="10dp"/>
         </RelativeLayout>
@@ -113,7 +112,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/release_list_container">
+                    style="@style/list_container">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -131,12 +130,12 @@
                     android:id="@+id/fragment_release_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/release_list_container">
+                    style="@style/list_container">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
                         style="@style/main_Text"
                         android:text="价格" />
 
@@ -144,32 +143,31 @@
                         android:id="@+id/fragment_release_price_image"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
-                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
                         android:src="@drawable/left_nav"/>
 
                     <TextView
                         android:id="@+id/fragment_release_price_showPrice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:layout_toLeftOf="@+id/fragment_release_price_image"/>
+                        android:layout_marginEnd="10dp"
+                        android:layout_toStartOf="@+id/fragment_release_price_image"/>
                 </RelativeLayout>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
                     style="@style/Cutting_line"/>
                 <RelativeLayout
                     android:id="@+id/fragment_release_sort"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/release_list_container">
+                    style="@style/list_container">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
                         style="@style/main_Text"
                         android:text="分类" />
 
@@ -177,33 +175,32 @@
                         android:id="@+id/fragment_release_sort_image"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
-                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
                         android:src="@drawable/left_nav"/>
 
                     <TextView
                         android:id="@+id/fragment_release_sort_showTag"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginEnd="10dp"
                         style="@style/main_Text"
-                        android:layout_toLeftOf="@+id/fragment_release_sort_image"/>
+                        android:layout_toStartOf="@+id/fragment_release_sort_image"/>
                 </RelativeLayout>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
                     style="@style/Cutting_line"/>
                 <RelativeLayout
                     android:id="@+id/fragment_release_number"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/release_list_container">
+                    style="@style/list_container">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
                         style="@style/main_Text"
                         android:text="新旧程度自评" />
 
@@ -211,83 +208,81 @@
                         android:id="@+id/fragment_release_number_image"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
-                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
                         android:src="@drawable/left_nav"/>
 
                     <TextView
                         android:id="@+id/fragment_release_number_showNumber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginEnd="10dp"
                         style="@style/main_Text"
-                        android:layout_toLeftOf="@+id/fragment_release_number_image"/>
+                        android:layout_toStartOf="@+id/fragment_release_number_image"/>
                 </RelativeLayout>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
                     style="@style/Cutting_line"/>
                 <RelativeLayout
                     android:id="@+id/fragment_release_position"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/release_list_container">
+                    style="@style/list_container">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
                     style="@style/main_Text"
                     android:text="交易校区" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="5dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="5dp"
                     android:orientation="horizontal">
 
                     <CheckBox
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="东"
-                        android:layout_marginRight="5dp" />
+                        android:layout_marginEnd="5dp" />
                     <CheckBox
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="西"
-                        android:layout_marginRight="5dp" />
+                        android:layout_marginEnd="5dp" />
                     <CheckBox
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="武汉"
-                        android:layout_marginRight="5dp" />
+                        android:layout_marginEnd="5dp" />
                 </LinearLayout>
             </RelativeLayout>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
                     style="@style/Cutting_line"/>
                 <RelativeLayout
                     android:id="@+id/fragment_release_cryptonym"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/release_list_container">
+                    style="@style/list_container">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
                         style="@style/main_Text"
                         android:text="是否匿名" />
                     <RadioGroup
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true"
                             android:checkedButton="@id/fragment_release_cryptonym_false">
                             <RadioButton
                                 android:id="@+id/fragment_release_cryptonym_true"

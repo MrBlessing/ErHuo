@@ -12,25 +12,18 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".HomePage"
-            android:theme="@style/transparentBar" />
-        <activity
-            android:name=".StartActivity"
-            android:theme="@style/transparentBar">
+        <activity android:name=".HomePage" />
+        <activity android:name=".StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Login"
-            android:theme="@style/transparentBar" />
-        <activity
-            android:name=".GoodsDetails"
-            android:theme="@style/transparentBar"></activity>
-        <activity android:name=".Utils.FindGoods"></activity>
+        <activity android:name=".Login" />
+        <activity android:name=".GoodsDetails" />
+        <activity android:name=".FindGoods" />
+        <activity android:name=".TransRecord"></activity>
     </application>
 
 </manifest>

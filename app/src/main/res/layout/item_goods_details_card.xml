@@ -23,9 +23,9 @@
             android:orientation="horizontal"
             android:background="#d9383e"
             android:paddingTop="25dp"
-            android:paddingLeft="18dp"
+            android:paddingStart="18dp"
             android:paddingBottom="20dp"
-            android:paddingRight="5dp">
+            android:paddingEnd="5dp">
 
             <RelativeLayout
                 android:layout_width="0dp"
@@ -36,28 +36,43 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/main_Text"
-                    android:layout_alignParentLeft="true"
-                    android:text="现价"
+                    android:layout_alignParentStart="true"
+                    android:text="现价:"
                     android:textColor="#fef564"/>
 
                 <TextView
+                    android:id="@+id/item_goods_details_card_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/main_Text"
+                    android:layout_marginStart="40dp"
+                    android:textColor="#fef564"/>
+
+                <TextView
+                    android:id="@+id/item_goods_details_card_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/main_Text"
                     android:layout_alignParentBottom="true"
-                    android:text="很长很长很长很长很长很长很长很长很长很长很长很长"
                     android:maxEms="20"
                     android:singleLine="true"
                     android:ellipsize="end"
                     android:textSize="20sp"
-                    android:textColor="#fff"/>
+                    android:textColor="#fff" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="100dp"
+                    android:layout_marginStart="100dp"
                     style="@style/main_Text"
-                    android:text="原价"
+                    android:text="原价:"
+                    android:textColor="#fef564" />
+                <TextView
+                    android:id="@+id/item_goods_details_card_oldPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="140dp"
+                    style="@style/main_Text"
                     android:textColor="#fef564"/>
 
             </RelativeLayout>
@@ -75,7 +90,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:layout_marginRight="10dp">
+                    android:layout_marginEnd="10dp">
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/item_goods_details_card_info"

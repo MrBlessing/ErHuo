@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import yuol.secondary.market.erhuo.R;
@@ -21,10 +22,11 @@ import yuol.secondary.market.erhuo.bean.GoodsInfo;
 public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.LocalAdapter> {
     private onItemClickListener listener;
     private List<GoodsInfo.DataBean> data;
-    private Context context = ActivityCollector.currentActivity();
+    private Context context;
 
     public GoodsAdapter(List<GoodsInfo.DataBean> goodsAdapters){
-        this.data = goodsAdapters;
+        context = ActivityCollector.currentActivity();
+        data = goodsAdapters;
     }
     @NonNull
     @Override
@@ -35,14 +37,14 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.LocalAdapter
 
     @Override
     public void onBindViewHolder(@NonNull final LocalAdapter localAdapter, int i) {
-        GoodsInfo.DataBean info = data.get(i);
+        final GoodsInfo.DataBean info = data.get(i);
         localAdapter.price.setText(info.getPrice());
         localAdapter.title.setText(info.getName());
         Glide.with(context).load(info.getPic()).into(localAdapter.imageView);
         localAdapter.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.onItemClick(localAdapter.itemView,localAdapter.getAdapterPosition());
+                listener.onItemClick(localAdapter.itemView, info);
             }
         });
         localAdapter.itemView.setOnLongClickListener(new View.OnLongClickListener() {
@@ -65,7 +67,7 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.LocalAdapter
 
     //设置回调接口
     public interface onItemClickListener{
-        void onItemClick(View view,int position);
+        void onItemClick(View view,GoodsInfo.DataBean data);
         void onItemLongClick(View view,int position);
     }
 

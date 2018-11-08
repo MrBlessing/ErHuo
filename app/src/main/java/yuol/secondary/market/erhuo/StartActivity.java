@@ -92,6 +92,7 @@ public class StartActivity extends BasedActivity {
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
             permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
         }
+
         if(!permissionList.isEmpty()){
             String[] permission =  permissionList.toArray(new String[permissionList.size()]);
             ActivityCompat.requestPermissions(this,permission,1);

@@ -27,7 +27,7 @@
                 android:layout_height="35dp"
                 android:layout_gravity="center"
                 style="@style/Image_Text_image"
-                android:src="@drawable/start"/>
+                android:src="@drawable/star"/>
 
             <TextView
                 android:layout_width="wrap_content"

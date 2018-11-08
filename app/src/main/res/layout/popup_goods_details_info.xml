@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:text="所在校区:"/>
 
             <TextView
@@ -73,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:text="东校区"/>
         </RelativeLayout>
         <View
@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:text="信誉积分:"/>
 
             <TextView
@@ -97,7 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:text="100"/>
         </RelativeLayout>
         <View
@@ -113,7 +113,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:text="联系方式"/>
 
             <TextView
@@ -121,7 +121,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:text="手机12345678901"/>
         </RelativeLayout>
     </LinearLayout>

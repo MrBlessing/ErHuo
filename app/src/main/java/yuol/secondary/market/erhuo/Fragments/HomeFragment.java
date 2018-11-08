@@ -3,18 +3,16 @@ package yuol.secondary.market.erhuo.Fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
@@ -30,13 +28,11 @@ import java.util.List;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
-import yuol.secondary.market.erhuo.Adapter.GoodsAdapter;
-import yuol.secondary.market.erhuo.GoodsDetails;
 import yuol.secondary.market.erhuo.R;
 import yuol.secondary.market.erhuo.Utils.ActivityCollector;
 import yuol.secondary.market.erhuo.Utils.FileUtils;
+import yuol.secondary.market.erhuo.FindGoods;
 import yuol.secondary.market.erhuo.Utils.GoodsList;
-import yuol.secondary.market.erhuo.Utils.LogUtil;
 import yuol.secondary.market.erhuo.Utils.NetworkUtils;
 import yuol.secondary.market.erhuo.bean.GoodsInfo;
 import yuol.secondary.market.erhuo.bean.ImageUrl;
@@ -47,6 +43,8 @@ public class HomeFragment extends Fragment {
     private Context context ;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout refresh;
+    private LinearLayout find;
+    private ArrayList<GoodsInfo.DataBean> data;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -61,12 +59,27 @@ public class HomeFragment extends Fragment {
         convenientBanner = view.findViewById(R.id.fragment_home_ConvenientBanner);
         recyclerView = view.findViewById(R.id.fragment_home_recycler);
         refresh = view.findViewById(R.id.fragment_home_refresh);
+        find = view.findViewById(R.id.fragment_home_find);
     }
 
     private void setEvent() {
         setRefreshEvent();
         setConvenientBanner();
         setRecyclerView();
+        setFindEvent();
+    }
+
+    private void setFindEvent() {
+        find.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, FindGoods.class);
+                Bundle info = new Bundle();
+                info.putSerializable("data",data);
+                intent.putExtras(info);
+                context.startActivity(intent);
+            }
+        });
     }
 
     private void setRefreshEvent() {
@@ -81,7 +94,9 @@ public class HomeFragment extends Fragment {
         String json = PreferenceManager.getDefaultSharedPreferences(context).getString("Json_goodsInfo",null);
         if(json!=null){
             GoodsInfo goodsInfo =  new Gson().fromJson(json,GoodsInfo.class);
-            GoodsList.setGoodsList(context,recyclerView,goodsInfo.getData());
+            data = goodsInfo.getData();
+            //加载列表
+            GoodsList.setGoodsList(context,recyclerView,data);
         }else {
             Toast.makeText(context, "商品信息加载失败", Toast.LENGTH_SHORT).show();
             //商品加载失败之后强制刷新

@@ -48,6 +48,22 @@
                     android:text="未登录"
                     style="@style/main_Text"/>
 
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="2dp"
+                    style="@style/mainColor">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="未实名认证"
+                        style="@style/up_background_Text" />
+
+                </FrameLayout>
+
+
+
             </LinearLayout>
         </RelativeLayout>
     </FrameLayout>
@@ -74,6 +90,7 @@
                 android:background="#fff">
 
                 <LinearLayout
+                    android:id="@+id/fragment_personal_center_transRecord"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"

@@ -14,7 +14,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:text="新旧程度"
             style="@style/popup_release_price_text" />
 
@@ -31,7 +31,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/popup_release_condition_inputNumber"
+            android:layout_toEndOf="@id/popup_release_condition_inputNumber"
             style="@style/popup_release_price_text"
             android:text="成新" />
 

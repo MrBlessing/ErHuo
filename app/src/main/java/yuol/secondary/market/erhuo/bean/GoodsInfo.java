@@ -1,6 +1,8 @@
 package yuol.secondary.market.erhuo.bean;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GoodsInfo {
@@ -14,7 +16,7 @@ public class GoodsInfo {
 
     private int code;
     private String message;
-    private List<DataBean> data;
+    private ArrayList<DataBean> data;
 
     public int getCode() {
         return code;
@@ -32,11 +34,11 @@ public class GoodsInfo {
         this.message = message;
     }
 
-    public List<DataBean> getData() {
+    public ArrayList<DataBean> getData() {
         return data;
     }
 
-    public void setData(List<DataBean> data) {
+    public void setData(ArrayList<DataBean> data) {
         this.data = data;
     }
 
@@ -65,7 +67,6 @@ public class GoodsInfo {
          * bargin : 0
          */
 
-        private String num;
         private String catname;
         private String name;
         private String content;
@@ -87,13 +88,6 @@ public class GoodsInfo {
         private String oldprice;
         private String bargin;
 
-        public String getNum() {
-            return num;
-        }
-
-        public void setNum(String num) {
-            this.num = num;
-        }
 
         public String getCatname() {
             return catname;

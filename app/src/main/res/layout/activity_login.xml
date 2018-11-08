@@ -7,21 +7,26 @@
     android:background="#fff"
     tools:context=".Login">
 
-    <LinearLayout
+    <FrameLayout
         style="@style/mainColor"
         android:layout_width="match_parent"
         android:layout_height="270dp"
         android:fitsSystemWindows="true"
         android:orientation="vertical">
+        <RelativeLayout
+            android:id="@+id/login_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/back" />
+        </RelativeLayout>
 
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_margin="10dp"
-            android:src="@drawable/back" />
-    </LinearLayout>
+    </FrameLayout>
 
-    <LinearLayout
+    <FrameLayout
         style="@style/mainColor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -31,7 +36,7 @@
             android:layout_height="50dp"
             android:scaleType="fitXY"
             android:src="@drawable/wave" />
-    </LinearLayout>
+    </FrameLayout>
 
 
     <LinearLayout
@@ -43,7 +48,7 @@
         <ImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginEnd="15dp"
             android:src="@drawable/account" />
 
         <EditText
@@ -64,7 +69,7 @@
         <ImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginEnd="15dp"
             android:src="@drawable/password" />
 
         <EditText

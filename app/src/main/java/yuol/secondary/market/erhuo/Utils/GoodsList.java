@@ -2,6 +2,7 @@ package yuol.secondary.market.erhuo.Utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -13,6 +14,7 @@ import yuol.secondary.market.erhuo.GoodsDetails;
 import yuol.secondary.market.erhuo.bean.GoodsInfo;
 
 public class GoodsList {
+    public static String INFO ="info";//切换页面时候传递的商品信息的key
     public static void setGoodsList(final Context context, RecyclerView recyclerView, List<GoodsInfo.DataBean> data){
 
         GoodsAdapter adapter = new GoodsAdapter(data);
@@ -22,8 +24,11 @@ public class GoodsList {
         //设置每一个item的点击事件
         adapter.setOnItemClickListener(new GoodsAdapter.onItemClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
+            public void onItemClick(View view, GoodsInfo.DataBean data) {
                 Intent intent = new Intent(context, GoodsDetails.class);
+                Bundle info = new Bundle();
+                info.putSerializable(INFO,data);
+                intent.putExtras(info);
                 context.startActivity(intent);
             }
             @Override

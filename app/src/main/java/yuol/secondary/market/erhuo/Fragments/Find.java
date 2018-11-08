@@ -21,8 +21,8 @@ public class Find extends Fragment {
     private static String PARAM = "param";//保存外部传来的参数的标签
     private ArrayList<GoodsInfo.DataBean> data;
 
-    public static FindFail newInstance(ArrayList<GoodsInfo.DataBean> data) {
-        FindFail fragment = new FindFail();
+    public static Find newInstance(ArrayList<GoodsInfo.DataBean> data) {
+        Find fragment = new Find();
         //将参数传入到Bundle中保存起来
         Bundle args = new Bundle();
         args.putSerializable(PARAM,data);
@@ -35,7 +35,7 @@ public class Find extends Fragment {
                              Bundle savedInstanceState) {
         Context context = ActivityCollector.currentActivity();
         View view = inflater.inflate(R.layout.fragment_find, container, false);
-        RecyclerView recyclerView = view.findViewById(R.id.fragment_home_recycler);
+        RecyclerView recyclerView = view.findViewById(R.id.fragment_find_recycler);
         GoodsList.setGoodsList(context, recyclerView,data);
         return view;
     }
@@ -45,7 +45,7 @@ public class Find extends Fragment {
         super.onCreate(savedInstanceState);
         //接收数据
         if (getArguments() != null) {
-            data = (ArrayList<GoodsInfo.DataBean>) savedInstanceState.getSerializable(PARAM);
+            data = (ArrayList<GoodsInfo.DataBean>) getArguments().getSerializable(PARAM);
         }
 
     }

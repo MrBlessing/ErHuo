@@ -16,19 +16,44 @@
             android:layout_height="wrap_content">
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:paddingTop="20dp"
+                android:layout_height="75dp"
                 app:layout_scrollFlags="scroll|enterAlways|snap"
-                style="@style/mainColor">
+                style="@style/main_statusBar">
+                <RelativeLayout
+                    android:id="@+id/goods_details_back"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/back"
+                        android:scaleType="fitXY"
+                        android:layout_centerInParent="true" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="60dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/up_background_Text"
+                        android:text="商品详情"
+                        android:layout_centerInParent="true" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true">
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/star"
+                        android:scaleType="fitXY"
+                        android:layout_marginTop="10dp"
+                        android:layout_alignParentStart="true"/>
+                </RelativeLayout>
 
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:src="@drawable/back"
-                    android:scaleType="fitXY"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginLeft="10dp"/>
 
             </RelativeLayout>
         </android.support.design.widget.AppBarLayout>
@@ -70,21 +95,21 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/release_list_container">
+                        style="@style/list_container">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             style="@style/main_Text"
-                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
                             android:text="商品分类"/>
 
                         <TextView
+                            android:id="@+id/goods_details_category"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             style="@style/main_Text"
-                            android:layout_alignParentRight="true"
-                            android:text="商品分类"/>
+                            android:layout_alignParentEnd="true" />
 
                     </RelativeLayout>
                     <View
@@ -94,13 +119,13 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/release_list_container"
+                        style="@style/list_container"
                         android:orientation="horizontal">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_marginRight="20dp">
+                            android:layout_marginEnd="20dp">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -111,10 +136,10 @@
                         </LinearLayout>
 
                         <TextView
+                            android:id="@+id/goods_details_content"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            style="@style/main_Text"
-                            android:text="balabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabala"/>
+                            style="@style/main_Text" />
 
                     </LinearLayout>
                     <View
@@ -124,21 +149,21 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/release_list_container">
+                        style="@style/list_container">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             style="@style/main_Text"
-                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
                             android:text="商品发布时间"/>
 
                         <TextView
+                            android:id="@+id/goods_details_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             style="@style/main_Text"
-                            android:layout_alignParentRight="true"
-                            android:text="商品分类"/>
+                            android:layout_alignParentEnd="true" />
 
                     </RelativeLayout>
                     <View
@@ -148,21 +173,21 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/release_list_container">
+                        style="@style/list_container">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             style="@style/main_Text"
-                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
                             android:text="想要人数"/>
 
                         <TextView
+                            android:id="@+id/goods_details_manyLike"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             style="@style/main_Text"
-                            android:layout_alignParentRight="true"
-                            android:text="商品分类"/>
+                            android:layout_alignParentEnd="true" />
 
                     </RelativeLayout>
                     <View
@@ -172,21 +197,21 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/release_list_container">
+                        style="@style/list_container">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             style="@style/main_Text"
-                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
                             android:text="新旧程度自评"/>
 
                         <TextView
+                            android:id="@+id/goods_details_howNew"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             style="@style/main_Text"
-                            android:layout_alignParentRight="true"
-                            android:text="商品分类"/>
+                            android:layout_alignParentEnd="true" />
 
                     </RelativeLayout>
                     <View
@@ -196,21 +221,21 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/release_list_container">
+                        style="@style/list_container">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             style="@style/main_Text"
-                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
                             android:text="交易方式"/>
 
                         <TextView
+                            android:id="@+id/goods_details_way"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             style="@style/main_Text"
-                            android:layout_alignParentRight="true"
-                            android:text="商品分类"/>
+                            android:layout_alignParentEnd="true" />
 
                     </RelativeLayout>
                     <View
@@ -220,21 +245,21 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/release_list_container">
+                        style="@style/list_container">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             style="@style/main_Text"
-                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
                             android:text="交易地点"/>
 
                         <TextView
+                            android:id="@+id/goods_details_goWhere"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             style="@style/main_Text"
-                            android:layout_alignParentRight="true"
-                            android:text="商品分类"/>
+                            android:layout_alignParentEnd="true" />
 
                     </RelativeLayout>
                     <View
@@ -244,21 +269,21 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/release_list_container">
+                        style="@style/list_container">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             style="@style/main_Text"
-                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
                             android:text="是否议价"/>
 
                         <TextView
+                            android:id="@+id/goods_details_bargain"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             style="@style/main_Text"
-                            android:layout_alignParentRight="true"
-                            android:text="商品分类"/>
+                            android:layout_alignParentEnd="true" />
 
                     </RelativeLayout>
                     <View
@@ -268,13 +293,13 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/release_list_container"
+                        style="@style/list_container"
                         android:orientation="horizontal">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_marginRight="20dp">
+                            android:layout_marginEnd="20dp">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -285,10 +310,10 @@
                         </LinearLayout>
 
                         <TextView
+                            android:id="@+id/goods_details_promiss"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            style="@style/main_Text"
-                            android:text="balabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabala"/>
+                            style="@style/main_Text" />
 
                     </LinearLayout>
                     <View
@@ -319,61 +344,43 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        style="@style/mainColor"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
-        <LinearLayout
+        <RelativeLayout
+            android:id="@+id/goods_details_contact"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
-            android:background="#f1efef">
+            style="@style/mainColor">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:id="@+id/goods_details_contact_text"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="微信"
-                android:textColor="#fff"
-                style="@style/main_Text"/>
+                style="@style/up_background_Text"/>
 
-        </LinearLayout>
-        <LinearLayout
+        </RelativeLayout>
+        <RelativeLayout
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="#d9383e">
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
+                android:id="@+id/goods_details_wantGet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 style="@style/main_Text"
-                android:text="Q"
                 android:textColor="#fff"
+                android:text="想要"
                 android:gravity="center"/>
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                style="@style/main_Text"
-                android:text="Q"
-                android:textColor="#fff"
-                android:gravity="center"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:background="#f1efef">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="电话"
-                android:textColor="#fff"
-                style="@style/main_Text"/>
-        </LinearLayout>
+        </RelativeLayout>
+
 
     </LinearLayout>
 
