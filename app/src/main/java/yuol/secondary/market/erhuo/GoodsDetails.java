@@ -6,26 +6,18 @@ import android.content.ClipboardManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.ColorFilter;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import yuol.secondary.market.erhuo.Utils.BasedActivity;
-import yuol.secondary.market.erhuo.Utils.GoodsList;
+import yuol.secondary.market.erhuo.Utils.RecyclerUtils;
 import yuol.secondary.market.erhuo.Utils.Popup;
 import yuol.secondary.market.erhuo.bean.GoodsInfo;
 
@@ -41,7 +33,6 @@ public class GoodsDetails extends BasedActivity {
     private TextView goWhere;//交易地点
     private TextView bargain;//是否议价
     private TextView promise;//售后承诺
-    private TextView category;//商品分类
     private TextView contactText;//联系方式
     private RelativeLayout contact;//联系按钮
     private TextView wantGet;
@@ -74,9 +65,8 @@ public class GoodsDetails extends BasedActivity {
     }
 
     private void showData() {
-        final GoodsInfo.DataBean info = (GoodsInfo.DataBean) getIntent().getExtras().getSerializable(GoodsList.INFO);//获取上个页面传来的商品信息
+        final GoodsInfo.DataBean info = (GoodsInfo.DataBean) getIntent().getExtras().getSerializable(RecyclerUtils.INFO);//获取上个页面传来的商品信息
         if(info!=null){
-            category.setText(info.getCatname());
             content.setText(info.getContent());
             time.setText(info.getPubtime());
             manyLike.setText(info.getManylike());
@@ -166,7 +156,6 @@ public class GoodsDetails extends BasedActivity {
 
     private void findView() {
         back = findViewById(R.id.goods_details_back);
-        category = findViewById(R.id.goods_details_category);
         merchantInfo = findViewById(R.id.item_goods_details_card_info);
         content = findViewById(R.id.goods_details_content);
         time = findViewById(R.id.goods_details_time);

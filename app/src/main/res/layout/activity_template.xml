@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".TransRecord">
+    tools:context=".FindGoods"
+    android:background="#f1efef">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="75dp"
         style="@style/main_statusBar">
         <RelativeLayout
-            android:id="@+id/trans_record_back"
+            android:id="@+id/template_back"
             android:layout_width="50dp"
             android:layout_height="match_parent">
             <ImageView
@@ -27,6 +27,7 @@
             android:layout_height="match_parent"
             android:layout_marginStart="60dp">
             <TextView
+                android:id="@+id/template_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/up_background_Text"
@@ -36,12 +37,10 @@
 
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
+    <FrameLayout
+        android:id="@+id/template_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent">
 
-
-
-
-
+    </FrameLayout>
 </LinearLayout>

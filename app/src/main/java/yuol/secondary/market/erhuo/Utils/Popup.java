@@ -16,8 +16,6 @@ import yuol.secondary.market.erhuo.R;
 
 public class Popup {
     public static EasyPopup easyPopup;
-    //默认的加载弹窗
-
 
     public static void bigPopupWindow(View root,View contentView,int orientation) {
         easyPopup = EasyPopup.create()
@@ -79,5 +77,20 @@ public class Popup {
                 TimeEasyPopup.dismiss();
             }
         }.start();
+    }
+
+    //自定义加载弹窗
+    public static void processPopupWindow(View root){
+        //加载加载布局
+        View popup = LayoutInflater.from(ActivityCollector.currentActivity()).inflate(R.layout.popup_progress_dialog,null);
+
+        easyPopup = EasyPopup.create()
+                //设置要加载的内容
+                .setContentView(popup, ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT)
+                //不允许取消
+                .setFocusAndOutsideEnable(false)
+                .apply();
+        //设置加载内容的位置
+        easyPopup.showAtLocation(root, Gravity.CENTER,0,0);
     }
 }

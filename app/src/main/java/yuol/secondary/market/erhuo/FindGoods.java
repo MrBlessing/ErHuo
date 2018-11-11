@@ -1,33 +1,27 @@
 package yuol.secondary.market.erhuo;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import yuol.secondary.market.erhuo.Fragments.Find;
-import yuol.secondary.market.erhuo.Fragments.FindFail;
-import yuol.secondary.market.erhuo.R;
+import yuol.secondary.market.erhuo.Fragments.GoodsList;
+import yuol.secondary.market.erhuo.Fragments.Fail;
 import yuol.secondary.market.erhuo.Utils.BasedActivity;
 import yuol.secondary.market.erhuo.bean.GoodsInfo;
+import yuol.secondary.market.erhuo.bean.GoodsInfo_brief;
 
 public class FindGoods extends BasedActivity {
 
     private ImageView back;
     private EditText content;
     private RelativeLayout find;
-    private ArrayList<GoodsInfo.DataBean> data;//总数据
-    private ArrayList<GoodsInfo.DataBean> aim;//筛选结果
+    private ArrayList<GoodsInfo_brief.DataBean.GoodsBean> data;//总数据
+    private ArrayList<GoodsInfo_brief.DataBean.GoodsBean> aim;//筛选结果
     private boolean res;//用于判断查找结果
 
     @Override
@@ -63,7 +57,7 @@ public class FindGoods extends BasedActivity {
     private void dataFilter(String text) {
         //相当于每次都会清空数据
         aim = new ArrayList<>();
-        for(GoodsInfo.DataBean temp:data){
+        for(GoodsInfo_brief.DataBean.GoodsBean temp:data){
             if(temp.getName().contains(text)||text.contains(temp.getName())){
                 aim.add(temp);
             }
@@ -75,7 +69,7 @@ public class FindGoods extends BasedActivity {
         //同时判断数据的大小，初步筛选数据
         Bundle info = getIntent().getExtras();
         if(info!=null){
-            data =  (ArrayList<GoodsInfo.DataBean>)info.getSerializable("data") ;
+            data =  (ArrayList<GoodsInfo_brief.DataBean.GoodsBean>)info.getSerializable("data") ;
             if(data!=null&&data.size()>0){
                 return true;
             }
@@ -100,13 +94,13 @@ public class FindGoods extends BasedActivity {
 
                     //判断结果选择显示哪个页面
                     if(res){
-                        getSupportFragmentManager().beginTransaction().replace(R.id.find_goods_container,Find.newInstance(aim)).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.find_goods_container, GoodsList.newInstance(aim)).commit();
                         //提交以后清除容器数据，将结果初始化
                         res = false;
                     }
 
                     else{
-                        getSupportFragmentManager().beginTransaction().replace(R.id.find_goods_container,new FindFail() ).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.find_goods_container,Fail.newInstance(R.drawable.find_fail) ).commit();
                     }
                 }
             });

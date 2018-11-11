@@ -21,7 +21,7 @@ public class AutoUpdate {
     //发送请求，获取包含版本信息的xml文件
     public static void Update(final Context context, final LocalBroadcastManager LBmanager){
 
-        NetworkUtils.request("http://192.168.137.1/taoke/update.xml", new okhttp3.Callback() {
+        NetworkUtils.request(NetworkUtils.UPDATE, new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 LogUtil.d(TAG,"网络链接失败");

@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".HomePage" />
+        <activity android:name=".HomePage" android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity android:name=".StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,7 +23,7 @@
         <activity android:name=".Login" />
         <activity android:name=".GoodsDetails" />
         <activity android:name=".FindGoods" />
-        <activity android:name=".TransRecord"></activity>
+        <activity android:name=".Template"/>
     </application>
 
 </manifest>

@@ -41,7 +41,7 @@
             android:maxLength="20"
             android:layout_marginStart="5dp"
             android:layout_alignParentStart="true" />
-        
+
         <RelativeLayout
             android:id="@+id/find_goods_find"
             android:layout_width="70dp"
@@ -58,7 +58,7 @@
                 android:textColor="#fff"/>
 
         </RelativeLayout>
-        
+
     </RelativeLayout>
 
     <FrameLayout

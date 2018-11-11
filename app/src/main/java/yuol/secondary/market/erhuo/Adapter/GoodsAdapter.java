@@ -18,13 +18,14 @@ import java.util.List;
 import yuol.secondary.market.erhuo.R;
 import yuol.secondary.market.erhuo.Utils.ActivityCollector;
 import yuol.secondary.market.erhuo.bean.GoodsInfo;
+import yuol.secondary.market.erhuo.bean.GoodsInfo_brief;
 
 public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.LocalAdapter> {
     private onItemClickListener listener;
-    private List<GoodsInfo.DataBean> data;
+    private List<GoodsInfo_brief.DataBean.GoodsBean> data;
     private Context context;
 
-    public GoodsAdapter(List<GoodsInfo.DataBean> goodsAdapters){
+    public GoodsAdapter(List<GoodsInfo_brief.DataBean.GoodsBean> goodsAdapters){
         context = ActivityCollector.currentActivity();
         data = goodsAdapters;
     }
@@ -37,14 +38,14 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.LocalAdapter
 
     @Override
     public void onBindViewHolder(@NonNull final LocalAdapter localAdapter, int i) {
-        final GoodsInfo.DataBean info = data.get(i);
+        final GoodsInfo_brief.DataBean.GoodsBean info = data.get(i);
         localAdapter.price.setText(info.getPrice());
         localAdapter.title.setText(info.getName());
-        Glide.with(context).load(info.getPic()).into(localAdapter.imageView);
+        Glide.with(context).load("http://192.168.137.1/"+info.getPic()).into(localAdapter.imageView);
         localAdapter.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.onItemClick(localAdapter.itemView, info);
+                listener.onItemClick(localAdapter.itemView, info.getGood_id());
             }
         });
         localAdapter.itemView.setOnLongClickListener(new View.OnLongClickListener() {
@@ -61,13 +62,14 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.LocalAdapter
         return data.size();
     }
     //用于外部设置监听器
+
     public void setOnItemClickListener(GoodsAdapter.onItemClickListener onItemClickListener){
         listener = onItemClickListener;
     }
 
     //设置回调接口
     public interface onItemClickListener{
-        void onItemClick(View view,GoodsInfo.DataBean data);
+        void onItemClick(View view,String goods_id);
         void onItemLongClick(View view,int position);
     }
 

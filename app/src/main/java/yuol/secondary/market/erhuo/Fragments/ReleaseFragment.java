@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +26,7 @@ import java.util.List;
 import yuol.secondary.market.erhuo.Adapter.SortRecyclerAdapter;
 import yuol.secondary.market.erhuo.R;
 import yuol.secondary.market.erhuo.Utils.ActivityCollector;
+import yuol.secondary.market.erhuo.Utils.InputMethod;
 import yuol.secondary.market.erhuo.Utils.LogUtil;
 import yuol.secondary.market.erhuo.Utils.NetworkUtils;
 import yuol.secondary.market.erhuo.Utils.Popup;
@@ -36,9 +38,13 @@ public class ReleaseFragment extends Fragment {
     private RelativeLayout price;
     private RelativeLayout sort;
     private RelativeLayout number;
+    private RelativeLayout contact;
+    private RelativeLayout position;
     private TextView showPrice;
     private TextView showSort;
     private TextView showCondition;
+    private TextView showContact;
+    private TextView showPosition;
     private Context context ;
     private static final String TAG = "ReleaseFragment";
 
@@ -59,6 +65,10 @@ public class ReleaseFragment extends Fragment {
         showPrice = view.findViewById(R.id.fragment_release_price_showPrice);
         showSort = view.findViewById(R.id.fragment_release_sort_showTag);
         showCondition = view.findViewById(R.id.fragment_release_number_showNumber);
+        contact = view.findViewById(R.id.fragment_release_contact);
+        showContact = view.findViewById(R.id.fragment_release_price_showContact);
+        position = view.findViewById(R.id.fragment_release_position);
+        showPosition = view.findViewById(R.id.fragment_release_position_showPosition);
     }
 
     private void setEvent() {
@@ -69,10 +79,83 @@ public class ReleaseFragment extends Fragment {
         setPrice();
         setSort();
         setCondition();
+        setContact();
+        setPosition();
+    }
+
+    private void setPosition() {
+        //加载弹窗布局
+        final View view_position = LayoutInflater.from(context).inflate(R.layout.popup_release_position,null);
+        position.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Popup.bigPopupWindow(view,view_position,Gravity.BOTTOM);
+            }
+        });
+
+        //设置弹窗内部视图的点击事件
+        final Button submit = view_position.findViewById(R.id.popup_release_position_submit);
+        final EditText input = view_position.findViewById(R.id.popup_release__position_inputPosition);
+        final RadioGroup group = view_position.findViewById(R.id.popup_release_position_about);
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!TextUtils.isEmpty(input.getText())){
+                    String text = "";
+                    switch (group.getCheckedRadioButtonId()){
+                        case R.id.popup_release_position_about_east :
+                            text = "东校区/";
+                            break;
+                        case R.id.popup_release_position_about_west :
+                            text = "西校区/";
+                            break;
+                        case R.id.popup_release_position_about_wuhan :
+                            text = "武汉校区/";
+                            break;
+                    }
+                    String show = text +input.getText();
+                    showPosition.setText(show);
+                    //关闭弹窗
+                    Popup.easyPopup.dismiss();
+                    //隐藏输入法
+                    InputMethod.hideInputMethod(input,context);
+                }else {
+                    Popup.hintPopupWindow(ReleaseFragment.this.view, 1000, "请输入完整内容");
+                }
+            }
+        });
+    }
+
+    private void setContact() {
+
+        //加载弹窗布局
+        final View view_contact = LayoutInflater.from(context).inflate(R.layout.popup_release_contact,null);
+        contact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Popup.bigPopupWindow(view,view_contact,Gravity.BOTTOM);
+            }
+        });
+
+        //设置弹窗内部视图的点击事件
+        Button submit = view_contact.findViewById(R.id.popup_release_contact_submit);
+        final EditText input = view_contact.findViewById(R.id.popup_release_contact_inputContact);
+        final RadioGroup group = view_contact.findViewById(R.id.popup_release_contact_way);
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!TextUtils.isEmpty(input.getText())){
+                    showContact.setText(input.getText());
+                    Popup.easyPopup.dismiss();
+                }else {
+                    Popup.hintPopupWindow(ReleaseFragment.this.view, 1000, "请输入完整内容");
+                }
+            }
+        });
     }
 
     private void setCondition() {
-        //加载库存输入布局
+        //加载弹窗布局
         final View view_number = LayoutInflater.from(context).inflate(R.layout.popup_release_condition,null);
 
         number.setOnClickListener(new View.OnClickListener() {
@@ -82,7 +165,7 @@ public class ReleaseFragment extends Fragment {
             }
         });
 
-        //设置view_number内部按钮的点击事件
+        //设置按钮的点击事件
         Button submit = view_number.findViewById(R.id.popup_release_condition_submit);
         final EditText inputNumber = view_number.findViewById(R.id.popup_release_condition_inputNumber);
         submit.setOnClickListener(new View.OnClickListener() {

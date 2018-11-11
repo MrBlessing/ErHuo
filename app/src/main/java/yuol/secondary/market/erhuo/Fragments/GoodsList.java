@@ -13,16 +13,20 @@ import java.util.ArrayList;
 
 import yuol.secondary.market.erhuo.R;
 import yuol.secondary.market.erhuo.Utils.ActivityCollector;
-import yuol.secondary.market.erhuo.Utils.GoodsList;
+import yuol.secondary.market.erhuo.Utils.LogUtil;
+import yuol.secondary.market.erhuo.Utils.RecyclerUtils;
 import yuol.secondary.market.erhuo.bean.GoodsInfo;
+import yuol.secondary.market.erhuo.bean.GoodsInfo_brief;
 
-public class Find extends Fragment {
+public class GoodsList extends Fragment {
 
     private static String PARAM = "param";//保存外部传来的参数的标签
-    private ArrayList<GoodsInfo.DataBean> data;
+    private  ArrayList<GoodsInfo_brief.DataBean.GoodsBean> data;
+    private static final String TAG = "GoodsList";
 
-    public static Find newInstance(ArrayList<GoodsInfo.DataBean> data) {
-        Find fragment = new Find();
+    public static GoodsList newInstance(ArrayList<GoodsInfo_brief.DataBean.GoodsBean> data) {
+        LogUtil.d(TAG,""+data.size());
+        GoodsList fragment = new GoodsList();
         //将参数传入到Bundle中保存起来
         Bundle args = new Bundle();
         args.putSerializable(PARAM,data);
@@ -34,9 +38,10 @@ public class Find extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Context context = ActivityCollector.currentActivity();
-        View view = inflater.inflate(R.layout.fragment_find, container, false);
+        View view = inflater.inflate(R.layout.fragment_goods_list, container, false);
+        //设置列表
         RecyclerView recyclerView = view.findViewById(R.id.fragment_find_recycler);
-        GoodsList.setGoodsList(context, recyclerView,data);
+        RecyclerUtils.setGoodsList(context, recyclerView,data);
         return view;
     }
 
@@ -45,8 +50,7 @@ public class Find extends Fragment {
         super.onCreate(savedInstanceState);
         //接收数据
         if (getArguments() != null) {
-            data = (ArrayList<GoodsInfo.DataBean>) getArguments().getSerializable(PARAM);
+            data = (ArrayList<GoodsInfo_brief.DataBean.GoodsBean>) getArguments().getSerializable(PARAM);
         }
-
     }
 }

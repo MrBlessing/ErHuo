@@ -8,12 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import yuol.secondary.market.erhuo.Login;
 import yuol.secondary.market.erhuo.R;
-import yuol.secondary.market.erhuo.TransRecord;
 import yuol.secondary.market.erhuo.Utils.ActivityCollector;
 
 public class PersonalCenterFragment extends Fragment {
@@ -47,8 +45,7 @@ public class PersonalCenterFragment extends Fragment {
         transRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, TransRecord.class);
-                startActivity(intent);
+
             }
         });
     }

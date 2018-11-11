@@ -27,7 +27,6 @@
                 android:layout_marginTop="10dp"/>
         </RelativeLayout>
 
-
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
@@ -56,7 +55,8 @@
                        android:layout_centerInParent="true"
                        android:layout_marginBottom="15dp"
                        style="@style/main_EditText"
-                       android:hint="商品名称"/>
+                       android:maxLength="8"
+                       android:hint="商品名称(8字以内)"/>
 
                    <View
                        android:layout_alignParentBottom="true"
@@ -73,7 +73,7 @@
                    android:layout_marginBottom="10dp"
                    style="@style/main_EditText"
                    android:gravity="top"
-                   android:hint="商品描述"/>
+                   android:hint="商品描述(300字以内)"/>
 
                <View
                    android:layout_width="match_parent"
@@ -87,7 +87,7 @@
                    android:layout_height="50dp"
                    android:layout_margin="12dp"
                    android:src="@drawable/add"
-                   android:background="#d1d1d1" />
+                   android:scaleType="fitXY" />
                <LinearLayout
                    android:orientation="horizontal"
                    android:layout_width="match_parent"
@@ -224,43 +224,72 @@
                     android:layout_height="1dp"
                     style="@style/Cutting_line"/>
                 <RelativeLayout
+                    android:id="@+id/fragment_release_contact"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/list_container">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        style="@style/main_Text"
+                        android:text="联系方式" />
+
+                    <ImageView
+                        android:id="@+id/fragment_release_contact_image"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_alignParentEnd="true"
+                        android:src="@drawable/left_nav"/>
+
+                    <TextView
+                        android:id="@+id/fragment_release_price_showContact"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:maxEms="10"
+                        android:layout_toStartOf="@+id/fragment_release_contact_image"/>
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    style="@style/Cutting_line"/>
+                <RelativeLayout
                     android:id="@+id/fragment_release_position"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/list_container">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    style="@style/main_Text"
-                    android:text="交易校区" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        style="@style/main_Text"
+                        android:text="交易位置" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="5dp"
-                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/fragment_release_position_image"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_alignParentEnd="true"
+                        android:src="@drawable/left_nav"/>
 
-                    <CheckBox
+                    <TextView
+                        android:id="@+id/fragment_release_position_showPosition"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="东"
-                        android:layout_marginEnd="5dp" />
-                    <CheckBox
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="西"
-                        android:layout_marginEnd="5dp" />
-                    <CheckBox
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="武汉"
-                        android:layout_marginEnd="5dp" />
-                </LinearLayout>
-            </RelativeLayout>
+                        android:layout_marginEnd="20dp"
+                        android:maxEms="10"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        style="@style/main_Text"
+                        android:layout_toStartOf="@+id/fragment_release_position_image"/>
+
+                </RelativeLayout>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -278,6 +307,7 @@
                         android:layout_alignParentStart="true"
                         style="@style/main_Text"
                         android:text="是否匿名" />
+
                     <RadioGroup
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -295,17 +325,29 @@
                                 android:layout_height="wrap_content"
                                 android:text="否"/>
                         </RadioGroup>
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_alignParentBottom="true"
-                        style="@style/Cutting_line"/>
                 </RelativeLayout>
-
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    style="@style/Cutting_line"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    style="@style/main_EditText"
+                    android:gravity="top"
+                    android:maxLength="300"
+                    android:hint="售后承诺(300字以内)"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    style="@style/Cutting_line"/>
             </LinearLayout>
 
             <include layout="@layout/base_line"/>
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
+
 </android.support.design.widget.CoordinatorLayout>

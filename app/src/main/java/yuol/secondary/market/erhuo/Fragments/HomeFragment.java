@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,27 +28,30 @@ import java.util.List;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
-import yuol.secondary.market.erhuo.R;
-import yuol.secondary.market.erhuo.Utils.ActivityCollector;
-import yuol.secondary.market.erhuo.Utils.FileUtils;
 import yuol.secondary.market.erhuo.FindGoods;
-import yuol.secondary.market.erhuo.Utils.GoodsList;
+import yuol.secondary.market.erhuo.HomePage;
+import yuol.secondary.market.erhuo.R;
+import yuol.secondary.market.erhuo.Template;
+import yuol.secondary.market.erhuo.Utils.ActivityCollector;
 import yuol.secondary.market.erhuo.Utils.NetworkUtils;
+import yuol.secondary.market.erhuo.Utils.Popup;
 import yuol.secondary.market.erhuo.bean.GoodsInfo;
+import yuol.secondary.market.erhuo.bean.GoodsInfo_brief;
 import yuol.secondary.market.erhuo.bean.ImageUrl;
 
 public class HomeFragment extends Fragment {
+    private static final String TAG = "HomeFragment";
     private View view;
     private ConvenientBanner convenientBanner;
-    private Context context ;
-    private RecyclerView recyclerView;
     private SwipeRefreshLayout refresh;
     private LinearLayout find;
+    private LinearLayout category;
     private ArrayList<GoodsInfo.DataBean> data;
+    private Context context ;//这个上下文可以调用getSupportFragmentManager
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        context = ActivityCollector.currentActivity();
+        context =  ActivityCollector.currentActivity();
         view = inflater.inflate(R.layout.fragment_home, container, false);
         findView();
         setEvent();
@@ -57,16 +60,68 @@ public class HomeFragment extends Fragment {
 
     private void findView() {
         convenientBanner = view.findViewById(R.id.fragment_home_ConvenientBanner);
-        recyclerView = view.findViewById(R.id.fragment_home_recycler);
         refresh = view.findViewById(R.id.fragment_home_refresh);
         find = view.findViewById(R.id.fragment_home_find);
+        category = view.findViewById(R.id.fragment_home_category);
     }
 
     private void setEvent() {
         setRefreshEvent();
         setConvenientBanner();
-        setRecyclerView();
+        setFragment();
         setFindEvent();
+        setCatEvent();
+    }
+
+    private void setFragment() {
+        NetworkUtils.request(NetworkUtils.GOODS_INFO, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                if(refresh.isRefreshing())
+                    refresh.setRefreshing(false);
+                //如果当前不在本页面停止进行页面的切换
+                if(ActivityCollector.currentActivity() instanceof HomePage){
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_home_container,Fail.newInstance(R.drawable.network_fail)).commit();
+                    ActivityCollector.currentActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(context, "数据加载失败", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                    String res = response.body().string();
+                    if(!TextUtils.isEmpty(res)){
+                        GoodsInfo_brief goodsInfo = new Gson().fromJson(res,GoodsInfo_brief.class);
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_home_container,GoodsList.newInstance(goodsInfo.getData().getGoods())).commit();
+                        if(refresh.isRefreshing()){
+                            refresh.setRefreshing(false);
+                        }
+                        ActivityCollector.currentActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(context, "数据加载成功", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+            }
+        });
+    }
+
+    private void setCatEvent() {
+        category.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, Template.class);
+                intent.putExtra("tag","goods_list");
+                intent.putExtra("cat_name","二手书籍");
+                intent.putExtra("title","二手书籍");
+                startActivity(intent);
+            }
+        });
     }
 
     private void setFindEvent() {
@@ -85,25 +140,6 @@ public class HomeFragment extends Fragment {
     private void setRefreshEvent() {
         refresh.setColorSchemeColors(Color.RED,Color.YELLOW,Color.GREEN);
         refresh.setOnRefreshListener(new RefreshListener());
-        //设置自动刷新
-        refresh.setRefreshing(true);
-        new RefreshListener().onRefresh();
-    }
-
-    private void setRecyclerView() {
-        String json = PreferenceManager.getDefaultSharedPreferences(context).getString("Json_goodsInfo",null);
-        if(json!=null){
-            GoodsInfo goodsInfo =  new Gson().fromJson(json,GoodsInfo.class);
-            data = goodsInfo.getData();
-            //加载列表
-            GoodsList.setGoodsList(context,recyclerView,data);
-        }else {
-            Toast.makeText(context, "商品信息加载失败", Toast.LENGTH_SHORT).show();
-            //商品加载失败之后强制刷新
-            if(!refresh.isRefreshing()){
-                new RefreshListener().onRefresh();
-            }
-        }
     }
 
     private void setConvenientBanner() {
@@ -119,7 +155,7 @@ public class HomeFragment extends Fragment {
             }
         }else {
             //保存的数据为空的话再次请求一遍数据
-            NetworkUtils.loadJson("http://192.168.137.1/taoke/ImageUrl.json","Json_imageUrl");
+            NetworkUtils.loadJson(NetworkUtils.IMAGE_URL,"Json_imageUrl");
         }
         //存入数据和Holder
         convenientBanner.setPages(new CBViewHolderCreator() {
@@ -154,35 +190,7 @@ public class HomeFragment extends Fragment {
         @Override
         public void onRefresh() {
             Toast.makeText(context, "努力加载中~", Toast.LENGTH_SHORT).show();
-
-            //重新进行网络请求
-            NetworkUtils.request("http://192.168.137.1/taoke/goodsInfo.json", new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    ActivityCollector.currentActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(context, "请检查你的网络", Toast.LENGTH_SHORT).show();
-                            refresh.setRefreshing(false);
-                        }
-                    });
-                }
-
-                @Override
-                public void onResponse(Call call, final Response response) throws IOException {
-                    //保存数据
-                    FileUtils.saveByPeference(ActivityCollector.currentActivity(), "Json_goodsInfo", response.body().string());
-                    ActivityCollector.currentActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(context, "数据更新完成", Toast.LENGTH_SHORT).show();
-                            //重新将数据加载到页面中
-                            setRecyclerView();
-                            refresh.setRefreshing(false);
-                        }
-                    });
-                }
-            });
+            setFragment();
         }
 
     }

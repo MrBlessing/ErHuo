@@ -18,8 +18,14 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class NetworkUtils {
+    public static String UPDATE = "http://192.168.137.1/erhuo/api/update.xml";
+    public static String IMAGE_URL ="http://192.168.137.1/erhuo/api/img/ImageUrl.json";
+    public static String CATEGORY = "http://192.168.137.1/erhuo/api/catlist.php";
+    public static String GOODS_INFO = "http://192.168.137.1/erhuo/api/erhuo.php";
+    public static String CATEGORY_GOODS = "http://192.168.137.1/erhuo/api/keyword.php?catname=";
+    public static String GOODS_DETAILS = "http://192.168.137.1/erhuo/api/details?good_id=";
 
-    //该类使用OkHttp向服务器发出请求，可以获得相应的数据
+    //该类使用OkHttp向服务器发出请求，可以获得相应的数据，此方法不用带参
     public static void request(String url,okhttp3.Callback callback){ 
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
@@ -27,6 +33,7 @@ public class NetworkUtils {
                 .build();
         client.newCall(request).enqueue(callback);
     }
+
 
     //更新信息专门用的xml解析
     public static List<String> parseXML(String content){
