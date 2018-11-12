@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".FindGoods"
     android:background="#f1efef">
@@ -41,6 +42,21 @@
         android:id="@+id/template_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/template_loading"
+            android:layout_width="match_parent"
+            android:layout_height="300dp">
+
+            <com.github.ybq.android.spinkit.SpinKitView
+                android:id="@+id/spin_kit"
+                style="@style/SpinKitView.Circle"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                app:SpinKit_Color="#bbe7e4" />
+
+        </RelativeLayout>
 
     </FrameLayout>
 </LinearLayout>

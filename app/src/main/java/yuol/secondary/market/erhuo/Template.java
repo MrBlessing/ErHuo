@@ -23,11 +23,14 @@ import yuol.secondary.market.erhuo.Utils.Popup;
 import yuol.secondary.market.erhuo.bean.GoodsInfo;
 import yuol.secondary.market.erhuo.bean.GoodsInfo_brief;
 
+import static android.view.View.GONE;
+
 public class Template extends BasedActivity {
 
     private RelativeLayout back;
-    private TextView title;
-    private static final String TAG = "Template";
+    private TextView title;//状态栏标题
+    private RelativeLayout loading;//加载控件
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +47,7 @@ public class Template extends BasedActivity {
     private void changeFragment() {
         Intent intent = getIntent();
         String tag = intent.getStringExtra("tag");
+
         switch (tag){
             case "goods_list": {
                 //进行网络请求获取商品分类数据
@@ -55,9 +59,9 @@ public class Template extends BasedActivity {
                         Template.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if(Popup.easyPopup!=null){
-                                    Popup.easyPopup.dismiss();
-                                }
+                                //取消加载页面
+                                loading.setVisibility(GONE);
+
                                 Toast.makeText(Template.this, "页面加载失败", Toast.LENGTH_SHORT).show();
                                 Template.this.getSupportFragmentManager().beginTransaction().replace(R.id.template_container, Fail.newInstance(R.drawable.network_fail)).commit();
                             }
@@ -66,15 +70,14 @@ public class Template extends BasedActivity {
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         String res = response.body().string();
-                        LogUtil.d(TAG, res);
                         if (res != null) {
                             final GoodsInfo_brief goodsInfo = new Gson().fromJson(res, GoodsInfo_brief.class);
                             Template.this.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    if(Popup.easyPopup!=null){
-                                        Popup.easyPopup.dismiss();
-                                    }
+                                    //取消加载页面
+                                    loading.setVisibility(GONE);
+
                                     getSupportFragmentManager().beginTransaction().replace(R.id.template_container, GoodsList.newInstance(goodsInfo.getData().getGoods())).commit();
                                 }
                             });
@@ -106,5 +109,6 @@ public class Template extends BasedActivity {
     private void findView() {
         back = findViewById(R.id.template_back);
         title = findViewById(R.id.template_title);
+        loading = findViewById(R.id.template_loading);
     }
 }

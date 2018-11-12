@@ -71,7 +71,6 @@ public class StartActivity extends BasedActivity {
         ////提前加载图片Json数据,并保存
         NetworkUtils.loadJson(NetworkUtils.IMAGE_URL,"Json_imageUrl");
         NetworkUtils.loadJson(NetworkUtils.CATEGORY,"Json_category");
-        NetworkUtils.loadJson(NetworkUtils.GOODS_INFO,"Json_goodsInfo");
     }
 
     @Override

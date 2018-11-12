@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
@@ -39,13 +40,16 @@ import yuol.secondary.market.erhuo.bean.GoodsInfo;
 import yuol.secondary.market.erhuo.bean.GoodsInfo_brief;
 import yuol.secondary.market.erhuo.bean.ImageUrl;
 
+import static android.view.View.GONE;
+
 public class HomeFragment extends Fragment {
     private static final String TAG = "HomeFragment";
     private View view;
-    private ConvenientBanner convenientBanner;
-    private SwipeRefreshLayout refresh;
-    private LinearLayout find;
-    private LinearLayout category;
+    private ConvenientBanner convenientBanner;//轮播
+    private SwipeRefreshLayout refresh;//下滑控件
+    private LinearLayout find;//搜索框
+    private LinearLayout category;//分类卡片
+    private RelativeLayout loading;
     private ArrayList<GoodsInfo.DataBean> data;
     private Context context ;//这个上下文可以调用getSupportFragmentManager
 
@@ -63,6 +67,7 @@ public class HomeFragment extends Fragment {
         refresh = view.findViewById(R.id.fragment_home_refresh);
         find = view.findViewById(R.id.fragment_home_find);
         category = view.findViewById(R.id.fragment_home_category);
+        loading = view.findViewById(R.id.fragment_home_loading);
     }
 
     private void setEvent() {
@@ -86,6 +91,8 @@ public class HomeFragment extends Fragment {
                         @Override
                         public void run() {
                             Toast.makeText(context, "数据加载失败", Toast.LENGTH_SHORT).show();
+                            //取消加载页面
+                            loading.setVisibility(GONE);
                         }
                     });
                 }
@@ -95,17 +102,20 @@ public class HomeFragment extends Fragment {
             public void onResponse(Call call, Response response) throws IOException {
                     String res = response.body().string();
                     if(!TextUtils.isEmpty(res)){
+                        ActivityCollector.currentActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(context, "数据加载成功", Toast.LENGTH_SHORT).show();
+                                //取消加载页面
+                                loading.setVisibility(GONE);
+                            }
+                         });
                         GoodsInfo_brief goodsInfo = new Gson().fromJson(res,GoodsInfo_brief.class);
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_home_container,GoodsList.newInstance(goodsInfo.getData().getGoods())).commit();
                         if(refresh.isRefreshing()){
                             refresh.setRefreshing(false);
                         }
-                        ActivityCollector.currentActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(context, "数据加载成功", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+
                     }
             }
         });
