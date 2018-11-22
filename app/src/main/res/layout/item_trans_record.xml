@@ -20,29 +20,32 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/item_trans_record_name"
+                style="@style/main_Text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/main_Text"
-                android:text="商品详情"
-                android:layout_margin="10dp"/>
+                android:layout_margin="10dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/item_trans_record_image1"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:background="#000"
+                    android:scaleType="fitXY" />
+
                 <ImageView
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="100dp"
-                    android:scaleType="fitXY"
                     android:layout_margin="10dp"
-                    android:background="#000"/>
-                <ImageView
-                    android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="100dp"
-                    android:scaleType="fitXY"
-                    android:layout_margin="10dp"
-                    android:background="#000"/>
+                    android:background="#000"
+                    android:scaleType="fitXY" />
             </LinearLayout>
 
             <View
@@ -66,14 +69,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/main_Text"
-                        android:text="发布时间:"/>
+                        android:textSize="12sp"
+                        android:text="时间:"/>
 
                     <TextView
+                        android:id="@+id/item_trans_record_time"
+                        style="@style/main_Text"
+                        android:textSize="12sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/main_Text"
-                        android:layout_marginStart="5dp"
-                        android:text="3天前"/>
+                        android:layout_marginStart="5dp" />
 
                 </LinearLayout>
                 <LinearLayout
@@ -81,18 +86,21 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        style="@style/main_Text"
-                        android:text="收藏人数:"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/main_Text"
-                        android:layout_marginStart="5dp"
-                        android:text="10"/>
+                        android:textSize="12sp"
+                        android:text="收藏人数:"/>
+
+                    <TextView
+                        android:id="@+id/item_trans_record_store"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/main_Text"
+                        android:textSize="12sp"
+                        android:layout_marginStart="5dp" />
 
                 </LinearLayout>
 
@@ -105,6 +113,7 @@
             android:layout_height="match_parent"
             style="@style/mainColor">
             <LinearLayout
+                android:id="@+id/item_trans_record_soldout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"

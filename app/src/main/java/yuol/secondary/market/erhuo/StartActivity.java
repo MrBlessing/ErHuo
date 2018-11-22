@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -16,13 +17,21 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 import yuol.secondary.market.erhuo.Utils.BasedActivity;
+import yuol.secondary.market.erhuo.Utils.FileUtils;
+import yuol.secondary.market.erhuo.Utils.KeyValueUtil;
 import yuol.secondary.market.erhuo.Utils.LogUtil;
 import yuol.secondary.market.erhuo.Utils.NetworkUtils;
 import yuol.secondary.market.erhuo.bean.ImageUrl;
+import yuol.secondary.market.erhuo.bean.Personal;
 
 public class StartActivity extends BasedActivity {
 
@@ -40,6 +49,7 @@ public class StartActivity extends BasedActivity {
         }
     };
     private static final String TAG = "StartActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +80,6 @@ public class StartActivity extends BasedActivity {
     private void load() {
         ////提前加载图片Json数据,并保存
         NetworkUtils.loadJson(NetworkUtils.IMAGE_URL,"Json_imageUrl");
-        NetworkUtils.loadJson(NetworkUtils.CATEGORY,"Json_category");
     }
 
     @Override
@@ -118,4 +127,29 @@ public class StartActivity extends BasedActivity {
                 }
         }
     }
+
+
+//    //检测登陆状态，获取登陆用户信息
+//    public void getPersonalInfo() {
+//        String cookie = PreferenceManager.getDefaultSharedPreferences(StartActivity.this).getString(KeyValueUtil.COOKIE,null);
+//        NetworkUtils.requestWithCookie(NetworkUtils.PERSONAL_INFO,cookie, new Callback() {
+//                @Override
+//                public void onFailure(Call call, IOException e) {
+//
+//                }
+//
+//                @Override
+//                public void onResponse(Call call, Response response) throws IOException {
+//                    //保存用户整体信息和姓名
+//                    String res = response.body().string();
+//                    if(!TextUtils.isEmpty(res)){
+//                        FileUtils.saveByPreference(KeyValueUtil.USER_INFO,res);
+//                        Personal personal = new Gson().fromJson(res,Personal.class);
+//                        String name = personal.getData().getNick();
+//                        FileUtils.saveByPreference(KeyValueUtil.USER_NAME,name);
+//                    }
+//
+//                }
+//            });
+//    }
 }

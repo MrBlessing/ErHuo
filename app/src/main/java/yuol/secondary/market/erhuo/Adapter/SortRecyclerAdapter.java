@@ -23,6 +23,7 @@ public class SortRecyclerAdapter extends RecyclerView.Adapter<SortRecyclerAdapte
 
     @NonNull
     @Override
+
     public LocalHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.popup_release_sort_item,viewGroup,false);
         return new LocalHolder(view);

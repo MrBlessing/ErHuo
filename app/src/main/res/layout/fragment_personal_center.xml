@@ -42,10 +42,10 @@
                     android:src="@drawable/head_portrait"/>
 
                 <TextView
+                    android:id="@+id/fragment_personal_center_personal_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="未登录"
                     style="@style/main_Text"/>
 
                 <FrameLayout
@@ -113,6 +113,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/fragment_personal_center_personalInfo"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
@@ -135,6 +136,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/fragment_personal_center_message"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"

@@ -9,7 +9,6 @@
     android:elevation="5dp">
 
     <LinearLayout
-        android:id="@+id/fragment_home_category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -28,6 +27,7 @@
             android:layout_marginBottom="20dp">
 
             <LinearLayout
+                android:id="@+id/fragment_home_category_car"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -36,18 +36,19 @@
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/tag_book"
+                    android:src="@drawable/cat_car"
                     style="@style/Image_Text_image"
                     android:layout_gravity="center"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="商品分类"
+                    android:text="代步工具"
                     style="@style/Image_Text_text"
                     android:layout_gravity="center"/>
 
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/fragment_home_category_electric"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -56,18 +57,19 @@
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/tag_book"
+                    android:src="@drawable/cat_electric_appliance"
                     style="@style/Image_Text_image"
                     android:layout_gravity="center"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="商品分类"
+                    android:text="家用电器"
                     style="@style/Image_Text_text"
                     android:layout_gravity="center"/>
 
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/fragment_home_category_exam"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -76,18 +78,19 @@
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/tag_book"
+                    android:src="@drawable/cat_exam"
                     style="@style/Image_Text_image"
                     android:layout_gravity="center"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="商品分类"
+                    android:text="考研考证"
                     style="@style/Image_Text_text"
                     android:layout_gravity="center"/>
 
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/fragment_home_category_note"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -96,18 +99,19 @@
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/tag_book"
+                    android:src="@drawable/cat_note"
                     style="@style/Image_Text_image"
                     android:layout_gravity="center"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="商品分类"
+                    android:text="学习笔记"
                     style="@style/Image_Text_text"
                     android:layout_gravity="center"/>
 
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/fragment_home_category_cloth"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -116,13 +120,13 @@
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/tag_book"
+                    android:src="@drawable/cat_cloth"
                     style="@style/Image_Text_image"
                     android:layout_gravity="center"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="商品分类"
+                    android:text="鞋服配饰"
                     style="@style/Image_Text_text"
                     android:layout_gravity="center"/>
 
@@ -139,6 +143,7 @@
 
 
             <LinearLayout
+                android:id="@+id/fragment_home_category_hobby"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -147,18 +152,19 @@
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/tag_book"
+                    android:src="@drawable/cat_hobby"
                     style="@style/Image_Text_image"
                     android:layout_gravity="center"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="商品分类"
+                    android:text="特长爱好"
                     style="@style/Image_Text_text"
                     android:layout_gravity="center"/>
 
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/fragment_home_category_sport"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -167,18 +173,19 @@
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/tag_book"
+                    android:src="@drawable/cat_sport"
                     style="@style/Image_Text_image"
                     android:layout_gravity="center"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="商品分类"
+                    android:text="运动健身"
                     style="@style/Image_Text_text"
                     android:layout_gravity="center"/>
 
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/fragment_home_category_book"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -187,18 +194,19 @@
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/tag_book"
+                    android:src="@drawable/cat_book"
                     style="@style/Image_Text_image"
                     android:layout_gravity="center"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="商品分类"
+                    android:text="二手书籍"
                     style="@style/Image_Text_text"
                     android:layout_gravity="center"/>
 
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/fragment_home_category_phone"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -207,33 +215,34 @@
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/tag_book"
+                    android:src="@drawable/cat_phone"
                     style="@style/Image_Text_image"
                     android:layout_gravity="center"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="商品分类"
+                    android:text="电子数码"
                     style="@style/Image_Text_text"
                     android:layout_gravity="center"/>
 
             </LinearLayout>
             <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+                android:id="@+id/fragment_home_category_other"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/tag_book"
+                android:src="@drawable/cat_other"
                 style="@style/Image_Text_image"
                 android:layout_gravity="center"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="商品分类"
+                android:text="其他商品"
                 style="@style/Image_Text_text"
                 android:layout_gravity="center"/>
 

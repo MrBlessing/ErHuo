@@ -11,7 +11,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="75dp"
-        style="@style/main_statusBar">
+        style="@style/main_statusBar"
+        android:focusable="true"
+        android:focusableInTouchMode="true" >
         <RelativeLayout
             android:id="@+id/template_back"
             android:layout_width="50dp"

@@ -2,7 +2,6 @@ package yuol.secondary.market.erhuo.Fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,8 +17,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,9 +25,7 @@ import yuol.secondary.market.erhuo.R;
 import yuol.secondary.market.erhuo.Utils.ActivityCollector;
 import yuol.secondary.market.erhuo.Utils.InputMethod;
 import yuol.secondary.market.erhuo.Utils.LogUtil;
-import yuol.secondary.market.erhuo.Utils.NetworkUtils;
 import yuol.secondary.market.erhuo.Utils.Popup;
-import yuol.secondary.market.erhuo.bean.Category;
 
 
 public class ReleaseFragment extends Fragment {
@@ -120,7 +115,7 @@ public class ReleaseFragment extends Fragment {
                     //隐藏输入法
                     InputMethod.hideInputMethod(input,context);
                 }else {
-                    Popup.hintPopupWindow(ReleaseFragment.this.view, 1000, "请输入完整内容");
+                    Popup.hintPopupWindow(ReleaseFragment.this.view,  "请输入完整内容",Popup.HINT_TIME);
                 }
             }
         });
@@ -148,7 +143,7 @@ public class ReleaseFragment extends Fragment {
                     showContact.setText(input.getText());
                     Popup.easyPopup.dismiss();
                 }else {
-                    Popup.hintPopupWindow(ReleaseFragment.this.view, 1000, "请输入完整内容");
+                    Popup.hintPopupWindow(ReleaseFragment.this.view,  "请输入完整内容",Popup.HINT_TIME);
                 }
             }
         });
@@ -175,7 +170,7 @@ public class ReleaseFragment extends Fragment {
                     Popup.easyPopup.dismiss();
                     showCondition.setText(inputNumber.getText()+"成新");
                 }else {
-                    Popup.hintPopupWindow(ReleaseFragment.this.view, 1000, "请输入完整内容");
+                    Popup.hintPopupWindow(ReleaseFragment.this.view,  "请输入完整内容",Popup.HINT_TIME);
                 }
 
             }
@@ -189,20 +184,7 @@ public class ReleaseFragment extends Fragment {
 
         //准备数据
         List<String> data = new ArrayList<>();
-        String json = PreferenceManager.getDefaultSharedPreferences(context).getString("Json_category",null);
-        if(json!=null){
-            Category category = new Gson().fromJson(json,Category.class);
-            List<Category.DataBean> dataBeans = category.getData();
-            for(Category.DataBean temp : dataBeans){
-                data.add(temp.getCatname());
-            }
-        }else{
-            data.clear();
-            data.add("网络连接失败，请打开网络重新尝试");
-            //再次尝试
-            NetworkUtils.loadJson("http://192.168.137.1/taoke/category.json","Json_category");
-        }
-
+        data.add("代步工具");data.add("家用电器");data.add("考研考证");data.add("学姐学长笔记");data.add("鞋服配饰");data.add("特长爱好");data.add("运动健身");data.add("二手书籍");data.add("电子数码");data.add("其他商品");
         //设置RecyclerView
         LinearLayoutManager manager1 = new LinearLayoutManager(ActivityCollector.currentActivity());
         manager1.setOrientation(LinearLayoutManager.VERTICAL);
@@ -259,7 +241,7 @@ public class ReleaseFragment extends Fragment {
                     Popup.easyPopup.dismiss();
                 }else {
                     //加载提示弹窗
-                    Popup.hintPopupWindow(ReleaseFragment.this.view,1000,"请输入完整内容");
+                    Popup.hintPopupWindow(ReleaseFragment.this.view,"请输入完整内容",Popup.HINT_TIME);
                 }
             }
         });

@@ -95,32 +95,27 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         style="@style/Cutting_line"/>
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/list_container"
-                        android:orientation="horizontal">
+                        style="@style/list_container">
 
-                        <LinearLayout
+                        <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginEnd="20dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                style="@style/main_Text"
-                                android:text="商品描述:"/>
-
-                        </LinearLayout>
+                            android:layout_height="wrap_content"
+                            style="@style/main_Text"
+                            android:layout_alignParentStart="true"
+                            android:text="商品描述:"/>
 
                         <TextView
                             android:id="@+id/goods_details_content"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginStart="80dp"
                             style="@style/main_Text" />
 
-                    </LinearLayout>
+                    </RelativeLayout>
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
@@ -269,32 +264,28 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         style="@style/Cutting_line"/>
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/list_container"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginEnd="20dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                style="@style/main_Text"
-                                android:text="售后承诺:"/>
-
-                        </LinearLayout>
+                        style="@style/list_container">
 
                         <TextView
-                            android:id="@+id/goods_details_promiss"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            style="@style/main_Text"
+                            android:layout_alignParentStart="true"
+                            android:text="售后承诺:"/>
+
+
+                        <TextView
+                            android:id="@+id/goods_details_promise"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginStart="80dp"
                             style="@style/main_Text" />
 
-                    </LinearLayout>
+                    </RelativeLayout>
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"

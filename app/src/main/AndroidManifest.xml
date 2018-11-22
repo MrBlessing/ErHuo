@@ -21,9 +21,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".Login" />
-        <activity android:name=".GoodsDetails" />
-        <activity android:name=".FindGoods" />
-        <activity android:name=".Template"/>
+        <activity android:name=".GoodsDetails" android:launchMode="singleTop"/>
+        <activity android:name=".FindGoods" android:launchMode="singleTop"/>
+        <activity android:name=".Template" android:launchMode="singleTop"/>
     </application>
 
 </manifest>

@@ -52,6 +52,7 @@
             android:src="@drawable/account" />
 
         <EditText
+            android:id="@+id/login_account"
             android:layout_width="match_parent"
             android:layout_height="25dp"
             style="@style/main_EditText"
@@ -73,11 +74,12 @@
             android:src="@drawable/password" />
 
         <EditText
+            android:id="@+id/login_password"
             android:layout_width="match_parent"
             android:layout_height="32dp"
             style="@style/main_EditText"
             android:hint="请输入密码"
-            android:inputType="number" />
+            android:inputType="textPassword" />
     </LinearLayout>
 
     <LinearLayout
@@ -96,6 +98,7 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/login_submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="25dp"

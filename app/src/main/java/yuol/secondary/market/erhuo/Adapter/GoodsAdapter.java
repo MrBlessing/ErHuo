@@ -52,7 +52,7 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.LocalAdapter
             @Override
             public boolean onLongClick(View view) {
                 listener.onItemLongClick(localAdapter.itemView,localAdapter.getAdapterPosition());
-                return true;
+                return  true;
             }
         });
     }

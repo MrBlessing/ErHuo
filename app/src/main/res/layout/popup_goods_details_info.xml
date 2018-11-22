@@ -11,17 +11,18 @@
         android:background="#e6ffffff">
         
         <de.hdodenhof.circleimageview.CircleImageView
-           android:layout_width="95dp"
-           android:layout_height="95dp"
-           android:layout_marginTop="35dp"
-           android:src="@drawable/head_portrait"
-           android:layout_gravity="center"/>
+            android:id="@+id/popup_goods_details_info_image"
+            android:layout_width="95dp"
+            android:layout_height="95dp"
+            android:layout_marginTop="35dp"
+            android:src="@drawable/head_portrait"
+            android:layout_gravity="center"/>
         <TextView
+            android:id="@+id/popup_goods_details_info_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:text="商家姓名"/>
+            android:layout_marginTop="10dp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -51,40 +52,17 @@
         android:orientation="vertical"
         android:padding="10dp"
         android:background="#fff">
-
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             style="@style/Cutting_line"/>
         <RelativeLayout
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:layout_alignParentStart="true"
-                android:text="所在校区:"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:layout_alignParentEnd="true"
-                android:text="东校区"/>
-        </RelativeLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            style="@style/Cutting_line"/>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -93,6 +71,7 @@
                 android:text="信誉积分:"/>
 
             <TextView
+                android:id="@+id/popup_goods_details_info_honest"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -104,30 +83,10 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             style="@style/Cutting_line"/>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:layout_alignParentStart="true"
-                android:text="联系方式"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:layout_alignParentEnd="true"
-                android:text="手机12345678901"/>
-        </RelativeLayout>
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/popup_goods_details_info"
+        android:id="@+id/popup_goods_details_info_back"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_gravity="center"

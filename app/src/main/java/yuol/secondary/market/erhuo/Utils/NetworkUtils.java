@@ -1,5 +1,8 @@
 package yuol.secondary.market.erhuo.Utils;
 
+import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -9,25 +12,35 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.Cookie;
+import okhttp3.CookieJar;
+import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class NetworkUtils {
-    public static String UPDATE = "http://192.168.137.1/erhuo/api/update.xml";
-    public static String IMAGE_URL ="http://192.168.137.1/erhuo/api/img/ImageUrl.json";
-    public static String CATEGORY = "http://192.168.137.1/erhuo/api/catlist.php";
-    public static String GOODS_INFO = "http://192.168.137.1/erhuo/api/erhuo.php";
-    public static String CATEGORY_GOODS = "http://192.168.137.1/erhuo/api/keyword.php?catname=";
-    public static String GOODS_DETAILS = "http://192.168.137.1/erhuo/api/details?good_id=";
+    public static final String UPDATE = "http://192.168.137.1/erhuo/api/update.xml";
+    public static final String IMAGE_URL ="http://192.168.137.1/erhuo/api/img/ImageUrl.json";
+    public static final String GOODS_INFO = "http://192.168.137.1/erhuo/api/erhuo.php";
+    public static final String CATEGORY_GOODS = "http://192.168.137.1/erhuo/api/keyword.php?catname=";
+    public static final String GOODS_DETAILS = "http://192.168.137.1/erhuo/api/details?good_id=";
+    public static final String LOGIN = "http://192.168.137.1/erhuo/api/login";
+    public static final String PERSONAL_INFO = "http://192.168.137.1/erhuo/api/personalcenter2.php";
+    public static final String TRANS_RECORD = "http://192.168.137.1/erhuo/api/goodsno.php";
+    public static final String MESSAGE = "http://192.168.137.1/erhuo/api/news.php";
+    public static final String SELLOUT = "http://192.168.137.1/erhuo/api/sellout.php?good_id=";
+    private static OkHttpClient client = new OkHttpClient();
+
 
     //该类使用OkHttp向服务器发出请求，可以获得相应的数据，此方法不用带参
-    public static void request(String url,okhttp3.Callback callback){ 
-        OkHttpClient client = new OkHttpClient();
+    public static void request(String url,okhttp3.Callback callback){
         Request request = new Request.Builder()
                 .url(url)
                 .build();
@@ -101,9 +114,63 @@ public class NetworkUtils {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                FileUtils.saveByPeference(ActivityCollector.currentActivity(), key, response.body().string());
+                FileUtils.saveByPreference(key, response.body().string());
             }
         });
+    }
+
+
+    //post请求
+    public static void requestByPost(String url,RequestBody body,Callback callback){
+        final HashMap<String , List<Cookie>> cookieStore = new HashMap<>();
+        OkHttpClient client = new OkHttpClient.Builder()
+                .cookieJar(new CookieJar() {
+                    @Override
+                    public void saveFromResponse(@NonNull HttpUrl httpUrl, @NonNull List<Cookie> list) {
+                        cookieStore.put("personalInfo", list);
+                        //储存cookie
+                        saveCookie(list);
+                    }
+
+                    @Override
+                    public List<Cookie> loadForRequest(HttpUrl httpUrl) {
+                        List<Cookie> cookies = cookieStore.get("personalInfo");
+                        return cookies != null ? cookies : new ArrayList<Cookie>();
+                    }
+                })
+                .build();
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
+
+    //带着保存的cookie请求
+    public static void requestWithCookie(String url,Callback callback){
+        String cookie = PreferenceManager.getDefaultSharedPreferences(ActivityCollector.currentActivity()).getString(KeyValueUtil.COOKIE,null);
+        if(!TextUtils.isEmpty(cookie)){
+            LogUtil.d("Template",cookie);
+            Request request = new Request.Builder()
+                    .url(url)
+                    .header("Cookie",cookie)
+                    .build();
+            client.newCall(request).enqueue(callback);
+        }else{
+            Popup.hintPopupWindow(ActivityCollector.currentActivity().getWindow().getDecorView().getRootView(),"请先登陆",1000);
+        }
+
+    }
+
+    private static void saveCookie(List<Cookie> cookies){
+        StringBuilder cookieContent = new StringBuilder("");
+        for(Cookie cookie : cookies){
+            if(!TextUtils.isEmpty(cookie.name())){
+                cookieContent.append(cookie.name()+"="+cookie.value()+";");
+            }
+        }
+        LogUtil.d("Login",cookieContent.toString());
+        FileUtils.saveByPreference(KeyValueUtil.COOKIE,cookieContent.toString());
     }
 
 }

@@ -22,10 +22,8 @@ public class GoodsList extends Fragment {
 
     private static String PARAM = "param";//保存外部传来的参数的标签
     private  ArrayList<GoodsInfo_brief.DataBean.GoodsBean> data;
-    private static final String TAG = "GoodsList";
 
     public static GoodsList newInstance(ArrayList<GoodsInfo_brief.DataBean.GoodsBean> data) {
-        LogUtil.d(TAG,""+data.size());
         GoodsList fragment = new GoodsList();
         //将参数传入到Bundle中保存起来
         Bundle args = new Bundle();

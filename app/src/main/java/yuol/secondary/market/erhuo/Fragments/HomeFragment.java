@@ -34,6 +34,7 @@ import yuol.secondary.market.erhuo.HomePage;
 import yuol.secondary.market.erhuo.R;
 import yuol.secondary.market.erhuo.Template;
 import yuol.secondary.market.erhuo.Utils.ActivityCollector;
+import yuol.secondary.market.erhuo.Utils.KeyValueUtil;
 import yuol.secondary.market.erhuo.Utils.NetworkUtils;
 import yuol.secondary.market.erhuo.Utils.Popup;
 import yuol.secondary.market.erhuo.bean.GoodsInfo;
@@ -48,10 +49,19 @@ public class HomeFragment extends Fragment {
     private ConvenientBanner convenientBanner;//轮播
     private SwipeRefreshLayout refresh;//下滑控件
     private LinearLayout find;//搜索框
-    private LinearLayout category;//分类卡片
     private RelativeLayout loading;
     private ArrayList<GoodsInfo.DataBean> data;
     private Context context ;//这个上下文可以调用getSupportFragmentManager
+    private LinearLayout car;
+    private LinearLayout electric;
+    private LinearLayout exam;
+    private LinearLayout note;
+    private LinearLayout cloth;
+    private LinearLayout hobby;
+    private LinearLayout sport;
+    private LinearLayout book;
+    private LinearLayout phone;
+    private LinearLayout other;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -66,8 +76,17 @@ public class HomeFragment extends Fragment {
         convenientBanner = view.findViewById(R.id.fragment_home_ConvenientBanner);
         refresh = view.findViewById(R.id.fragment_home_refresh);
         find = view.findViewById(R.id.fragment_home_find);
-        category = view.findViewById(R.id.fragment_home_category);
         loading = view.findViewById(R.id.fragment_home_loading);
+        car = view.findViewById(R.id.fragment_home_category_car);
+        electric = view.findViewById(R.id.fragment_home_category_electric);
+        exam = view.findViewById(R.id.fragment_home_category_exam);
+        note = view.findViewById(R.id.fragment_home_category_note);
+        cloth = view.findViewById(R.id.fragment_home_category_cloth);
+        hobby = view.findViewById(R.id.fragment_home_category_hobby);
+        sport = view.findViewById(R.id.fragment_home_category_sport);
+        book = view.findViewById(R.id.fragment_home_category_book);
+        phone = view.findViewById(R.id.fragment_home_category_phone);
+        other = view.findViewById(R.id.fragment_home_category_other);
     }
 
     private void setEvent() {
@@ -82,56 +101,123 @@ public class HomeFragment extends Fragment {
         NetworkUtils.request(NetworkUtils.GOODS_INFO, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                if(refresh.isRefreshing())
-                    refresh.setRefreshing(false);
-                //如果当前不在本页面停止进行页面的切换
-                if(ActivityCollector.currentActivity() instanceof HomePage){
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_home_container,Fail.newInstance(R.drawable.network_fail)).commit();
-                    ActivityCollector.currentActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
+                //错误提示
+                ActivityCollector.currentActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try{
+                            //关闭刷新
+                            if (refresh.isRefreshing())
+                                refresh.setRefreshing(false);
+                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_home_container,Fail.newInstance(R.drawable.network_fail)).commit();
                             Toast.makeText(context, "数据加载失败", Toast.LENGTH_SHORT).show();
                             //取消加载页面
                             loading.setVisibility(GONE);
+                        }catch (Exception e){
+                            e.printStackTrace();
                         }
-                    });
-                }
+
+                    }
+                });
+
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                    String res = response.body().string();
-                    if(!TextUtils.isEmpty(res)){
-                        ActivityCollector.currentActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(context, "数据加载成功", Toast.LENGTH_SHORT).show();
-                                //取消加载页面
-                                loading.setVisibility(GONE);
-                            }
-                         });
-                        GoodsInfo_brief goodsInfo = new Gson().fromJson(res,GoodsInfo_brief.class);
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_home_container,GoodsList.newInstance(goodsInfo.getData().getGoods())).commit();
-                        if(refresh.isRefreshing()){
-                            refresh.setRefreshing(false);
-                        }
-
+                final String res = response.body().string();
+                //检查是否在当前页面
+                if(!TextUtils.isEmpty(res)&&ActivityCollector.currentActivity() instanceof HomePage){
+                    if(refresh.isRefreshing()){
+                        refresh.setRefreshing(false);
                     }
+                    ActivityCollector.currentActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(context, "数据加载成功", Toast.LENGTH_SHORT).show();
+                            //取消加载页面
+                            loading.setVisibility(GONE);
+                        }
+                    });
+
+                    GoodsInfo_brief goodsInfo = new Gson().fromJson(res,GoodsInfo_brief.class);
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_home_container,GoodsList.newInstance(goodsInfo.getData().getGoods())).commit();
+
+                }
             }
         });
     }
 
     private void setCatEvent() {
-        category.setOnClickListener(new View.OnClickListener() {
+
+        car.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, Template.class);
-                intent.putExtra("tag","goods_list");
-                intent.putExtra("cat_name","二手书籍");
-                intent.putExtra("title","二手书籍");
-                startActivity(intent);
+                startCat("代步工具","代步工具");
             }
         });
+        electric.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startCat("家用电器","家用电器");
+            }
+        });
+        exam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startCat("考研考证","考研考证");
+            }
+        });
+        note.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startCat("学习笔记","学姐学长笔记");
+            }
+        });
+        cloth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startCat("鞋服配饰","鞋服配饰");
+            }
+        });
+        hobby.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startCat("特长爱好","特长爱好");
+            }
+        });
+        sport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startCat("运动健身","运动健身");
+            }
+        });
+        book.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startCat("二手书籍","二手书籍");
+            }
+        });
+        phone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startCat("手机数码","手机数码");
+            }
+        });
+        other.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startCat("其他商品","其他商品");
+            }
+        });
+    }
+
+    //启动分类页面
+    private void startCat(String title,String value){
+        Intent intent = new Intent(context, Template.class);
+        intent.putExtra(KeyValueUtil.TEMPLATE_TAG,KeyValueUtil.TEMPLATE_GOODS_LIST);
+        intent.putExtra(KeyValueUtil.CAT_NAME,value);
+        intent.putExtra(KeyValueUtil.TEMPLATE_TITLE,title);
+        startActivity(intent);
     }
 
     private void setFindEvent() {

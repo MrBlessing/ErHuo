@@ -11,12 +11,12 @@ import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Response;
+import yuol.secondary.market.erhuo.Utils.KeyValueUtil;
 import yuol.secondary.market.erhuo.Utils.LogUtil;
 import yuol.secondary.market.erhuo.Utils.NetworkUtils;
 
 public class AutoUpdate {
     private static final String TAG="AutoUpdate";
-    public static boolean state = false;//用于外界获取更新状态
 
     //发送请求，获取包含版本信息的xml文件
     public static void Update(final Context context, final LocalBroadcastManager LBmanager){
@@ -46,13 +46,13 @@ public class AutoUpdate {
 
                 //判断是否有版本更新
                if(!versionInfo.get(0).equals(versionNow)){
-                   Intent intent = new Intent("yuol.secondary.market.toake.update");
-                   state = true;
+                   Intent intent = new Intent(KeyValueUtil.BROADCAST_UPDATE);
+
                    intent.putExtra("state",true);
                    intent.putExtra("url",versionInfo.get(2));
                    LBmanager.sendBroadcast(intent);
                }else{
-                   Intent intent = new Intent("yuol.secondary.market.toake.update");
+                   Intent intent = new Intent(KeyValueUtil.BROADCAST_UPDATE);
                    intent.putExtra("state",false);
                    LBmanager.sendBroadcast(intent);
                }
