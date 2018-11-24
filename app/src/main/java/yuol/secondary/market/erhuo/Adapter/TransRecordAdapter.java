@@ -15,8 +15,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 
-import org.w3c.dom.Text;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -63,13 +61,18 @@ public class TransRecordAdapter extends RecyclerView.Adapter<TransRecordAdapter.
             public void onResponse(Call call, Response response) throws IOException {
                 String res = response.body().string();
                 if(!TextUtils.isEmpty(res)){
+                    LogUtil.d(TAG,res);
                     GoodsInfo info = new Gson().fromJson(res,GoodsInfo.class);
                     final GoodsInfo.DataBean dataBean = info.getData();
                     ActivityCollector.currentActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             try{
-                                Glide.with(context).load("http://192.168.137.1/" + dataBean.getGoods().getPic()).into(localHolder.image1);
+                                Glide.with(context).load(NetworkUtils.IP + dataBean.getGoods().getPic().get(0)).into(localHolder.image1);
+
+                                if(dataBean.getGoods().getPic().get(1) != null){
+                                    Glide.with(context).load(NetworkUtils.IP + dataBean.getGoods().getPic().get(1)).into(localHolder.image2);
+                                }
                                 localHolder.time.setText(dataBean.getGoods().getPubtime());
                                 localHolder.store.setText(dataBean.getGoods().getManylike());
                             }catch (Exception e){
@@ -132,12 +135,14 @@ public class TransRecordAdapter extends RecyclerView.Adapter<TransRecordAdapter.
         private TextView store;//收藏人数
         private LinearLayout sellout;
         private ImageView image1;
+        private ImageView image2;
         LocalHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.item_trans_record_name);
             time = itemView.findViewById(R.id.item_trans_record_time);
             store =itemView.findViewById(R.id.item_trans_record_store);
             image1 = itemView.findViewById(R.id.item_trans_record_image1);
+            image2 = itemView.findViewById(R.id.item_trans_record_image2);
             sellout = itemView.findViewById(R.id.item_trans_record_soldout);
         }
     }

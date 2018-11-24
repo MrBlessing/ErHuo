@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,19 +16,29 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bigkoo.convenientbanner.ConvenientBanner;
+import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
+import com.bigkoo.convenientbanner.holder.Holder;
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import yuol.secondary.market.erhuo.Fragments.HomeFragment;
 import yuol.secondary.market.erhuo.Utils.BasedActivity;
 import yuol.secondary.market.erhuo.Utils.KeyValueUtil;
+import yuol.secondary.market.erhuo.Utils.NetworkUtils;
 import yuol.secondary.market.erhuo.Utils.RecyclerUtils;
 import yuol.secondary.market.erhuo.Utils.Popup;
 import yuol.secondary.market.erhuo.bean.GoodsInfo;
+import yuol.secondary.market.erhuo.bean.ImageUrl;
 
 public class GoodsDetails extends BasedActivity {
     private CircleImageView merchantInfo;//商家头像
     private RelativeLayout back;
-    private ImageView image;//商品图片
+    private ConvenientBanner banner;//商品图片轮播
     private TextView content;//商品描述
     private TextView time;//发布时间
     private TextView manyLike;//想要人数
@@ -70,7 +81,9 @@ public class GoodsDetails extends BasedActivity {
         final GoodsInfo.DataBean data = (GoodsInfo.DataBean) getIntent().getExtras().getSerializable(KeyValueUtil.GOODS_INFO);//获取上个页面传来的商品信息
         final GoodsInfo.DataBean.GoodsBean info = data.getGoods();
         if(info!=null){
-            Glide.with(this).load("http://192.168.137.1/"+info.getPic()).into(image);
+           //设置轮播
+            setConvenientBanner(info);
+            //设置其他文本
             content.setText(info.getContent());
             time.setText(info.getPubtime());
             manyLike.setText(info.getManylike());
@@ -175,7 +188,7 @@ public class GoodsDetails extends BasedActivity {
     }
 
     private void findView() {
-        image = findViewById(R.id.item_goods_details_image);
+        banner = findViewById(R.id.item_goods_details_banner);
         back = findViewById(R.id.goods_details_back);
         merchantInfo = findViewById(R.id.item_goods_details_card_info);
         content = findViewById(R.id.goods_details_content);
@@ -191,5 +204,33 @@ public class GoodsDetails extends BasedActivity {
         name = findViewById(R.id.item_goods_details_card_name);
         price = findViewById(R.id.item_goods_details_card_price);
         oldPrice = findViewById(R.id.item_goods_details_card_oldPrice);
+    }
+
+    private void setConvenientBanner(GoodsInfo.DataBean.GoodsBean info ) {
+        List<String> data = info.getPic();
+        banner.setPages(new CBViewHolderCreator() {
+            @Override
+            public Object createHolder() {
+                return new GoodsDetails.LocalHolder();
+            }
+        },data)
+                .startTurning(2000);
+    }
+
+    //适配ConvenientBanner
+    class LocalHolder implements Holder<String> {
+        private ImageView imageView;
+        @Override
+        public View createView(Context context) {
+            imageView = new ImageView(context);
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+            return imageView;
+        }
+
+        @Override
+        public void UpdateUI(Context context, int position, String data) {
+            Glide.with(context).load(NetworkUtils.IP + data).into(imageView);
+        }
+
     }
 }

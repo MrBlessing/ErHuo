@@ -25,7 +25,8 @@
             android:layout_centerInParent="true"
             style="@style/main_EditText"
             android:textSize="20sp"
-            android:hint="0"
+            android:maxLength="2"
+            android:hint="10"
             android:inputType="number"/>
 
         <TextView

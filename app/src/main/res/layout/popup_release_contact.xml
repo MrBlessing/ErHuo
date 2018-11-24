@@ -61,6 +61,7 @@
             style="@style/main_EditText"
             android:layout_gravity="center"
             android:maxLength="20"
+            android:inputType="number"
             android:hint="QQ/微信/手机号" />
 
     </LinearLayout>

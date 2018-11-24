@@ -1,13 +1,14 @@
 package yuol.secondary.market.erhuo.bean;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class GoodsInfo {
 
     /**
      * code : 200
      * message : 数据传输成功
-     * data : {"goods":{"name":"白夜行","content":"我没有看过，但是听说挺好看的","pic":"erhuo/upload/2018/11/14/53368.jpg","honest":"100","price":"20","way":"线下","gwhere":"长江大学东校区","hide":"否","lockum":"0","hownew":"7","promise":"10天包退","manylike":"0","wechat":null,"phone":null,"qqnum":"1316710421","oldprice":"50","bargin":"能够议价","pubtime":"2018-11-14 15:59:13"},"user":{"nick":"发","touxiang":null}}
+     * data : {"goods":{"name":"java必过","content":"1111额鹅鹅鹅","pic":["erhuo/test/2018/11/24/17591.jpg","erhuo/test/2018/11/24/89510.jpg"],"honest":"100","price":"111","way":"线下","gwhere":"长江大学东校区","hide":"否","lockum":"0","hownew":"1","promise":"11","manylike":"0","wechat":null,"phone":null,"qqnum":"1316710421","oldprice":"1111","bargin":"能够议价","pubtime":"2018-11-24 11:13:38"},"user":{"nick":"听歌成瘾","touxiang":"erhuo/touxiang/123@qq.com/59103.jpg"}}
      */
 
     private int code;
@@ -40,8 +41,8 @@ public class GoodsInfo {
 
     public static class DataBean implements Serializable{
         /**
-         * goods : {"name":"白夜行","content":"我没有看过，但是听说挺好看的","pic":"erhuo/upload/2018/11/14/53368.jpg","honest":"100","price":"20","way":"线下","gwhere":"长江大学东校区","hide":"否","lockum":"0","hownew":"7","promise":"10天包退","manylike":"0","wechat":null,"phone":null,"qqnum":"1316710421","oldprice":"50","bargin":"能够议价","pubtime":"2018-11-14 15:59:13"}
-         * user : {"nick":"发","touxiang":null}
+         * goods : {"name":"java必过","content":"1111额鹅鹅鹅","pic":["erhuo/test/2018/11/24/17591.jpg","erhuo/test/2018/11/24/89510.jpg"],"honest":"100","price":"111","way":"线下","gwhere":"长江大学东校区","hide":"否","lockum":"0","hownew":"1","promise":"11","manylike":"0","wechat":null,"phone":null,"qqnum":"1316710421","oldprice":"1111","bargin":"能够议价","pubtime":"2018-11-24 11:13:38"}
+         * user : {"nick":"听歌成瘾","touxiang":"erhuo/touxiang/123@qq.com/59103.jpg"}
          */
 
         private GoodsBean goods;
@@ -65,29 +66,28 @@ public class GoodsInfo {
 
         public static class GoodsBean implements Serializable{
             /**
-             * name : 白夜行
-             * content : 我没有看过，但是听说挺好看的
-             * pic : erhuo/upload/2018/11/14/53368.jpg
+             * name : java必过
+             * content : 1111额鹅鹅鹅
+             * pic : ["erhuo/test/2018/11/24/17591.jpg","erhuo/test/2018/11/24/89510.jpg"]
              * honest : 100
-             * price : 20
+             * price : 111
              * way : 线下
              * gwhere : 长江大学东校区
              * hide : 否
              * lockum : 0
-             * hownew : 7
-             * promise : 10天包退
+             * hownew : 1
+             * promise : 11
              * manylike : 0
              * wechat : null
              * phone : null
              * qqnum : 1316710421
-             * oldprice : 50
+             * oldprice : 1111
              * bargin : 能够议价
-             * pubtime : 2018-11-14 15:59:13
+             * pubtime : 2018-11-24 11:13:38
              */
 
             private String name;
             private String content;
-            private String pic;
             private String honest;
             private String price;
             private String way;
@@ -103,6 +103,7 @@ public class GoodsInfo {
             private String oldprice;
             private String bargin;
             private String pubtime;
+            private List<String> pic;
 
             public String getName() {
                 return name;
@@ -118,14 +119,6 @@ public class GoodsInfo {
 
             public void setContent(String content) {
                 this.content = content;
-            }
-
-            public String getPic() {
-                return pic;
-            }
-
-            public void setPic(String pic) {
-                this.pic = pic;
             }
 
             public String getHonest() {
@@ -247,16 +240,24 @@ public class GoodsInfo {
             public void setPubtime(String pubtime) {
                 this.pubtime = pubtime;
             }
+
+            public List<String> getPic() {
+                return pic;
+            }
+
+            public void setPic(List<String> pic) {
+                this.pic = pic;
+            }
         }
 
         public static class UserBean implements Serializable{
             /**
-             * nick : 发
-             * touxiang : null
+             * nick : 听歌成瘾
+             * touxiang : erhuo/touxiang/123@qq.com/59103.jpg
              */
 
             private String nick;
-            private Object touxiang;
+            private String touxiang;
 
             public String getNick() {
                 return nick;
@@ -266,11 +267,11 @@ public class GoodsInfo {
                 this.nick = nick;
             }
 
-            public Object getTouxiang() {
+            public String getTouxiang() {
                 return touxiang;
             }
 
-            public void setTouxiang(Object touxiang) {
+            public void setTouxiang(String touxiang) {
                 this.touxiang = touxiang;
             }
         }

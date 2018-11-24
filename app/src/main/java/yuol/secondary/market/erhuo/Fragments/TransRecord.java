@@ -16,7 +16,6 @@ import java.util.List;
 import yuol.secondary.market.erhuo.Adapter.TransRecordAdapter;
 import yuol.secondary.market.erhuo.R;
 import yuol.secondary.market.erhuo.Utils.ActivityCollector;
-import yuol.secondary.market.erhuo.bean.MessageBean;
 import yuol.secondary.market.erhuo.bean.TransRecordBean;
 
 

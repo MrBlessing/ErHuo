@@ -81,15 +81,18 @@ public class RecyclerUtils {
                                 context.startActivity(intent);
                             }else {
                                 //没有该商品
-                                Toast.makeText(context, "没有该商品", Toast.LENGTH_SHORT).show();
+                                ActivityCollector.currentActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(context, "没有该商品", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
                             }
 
                         }
                     }
                 });
-
-
-
             }
             @Override
             public void onItemLongClick(View view, int position) {

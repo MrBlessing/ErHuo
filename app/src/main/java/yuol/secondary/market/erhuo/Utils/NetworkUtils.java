@@ -36,6 +36,7 @@ public class NetworkUtils {
     public static final String TRANS_RECORD = "http://192.168.137.1/erhuo/api/goodsno.php";
     public static final String MESSAGE = "http://192.168.137.1/erhuo/api/news.php";
     public static final String SELLOUT = "http://192.168.137.1/erhuo/api/sellout.php?good_id=";
+    public static final String IP ="http://192.168.137.1/";
     private static OkHttpClient client = new OkHttpClient();
 
 

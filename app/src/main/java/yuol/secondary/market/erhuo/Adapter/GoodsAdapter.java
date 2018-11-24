@@ -17,6 +17,7 @@ import java.util.List;
 
 import yuol.secondary.market.erhuo.R;
 import yuol.secondary.market.erhuo.Utils.ActivityCollector;
+import yuol.secondary.market.erhuo.Utils.NetworkUtils;
 import yuol.secondary.market.erhuo.bean.GoodsInfo;
 import yuol.secondary.market.erhuo.bean.GoodsInfo_brief;
 
@@ -41,7 +42,7 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.LocalAdapter
         final GoodsInfo_brief.DataBean.GoodsBean info = data.get(i);
         localAdapter.price.setText(info.getPrice());
         localAdapter.title.setText(info.getName());
-        Glide.with(context).load("http://192.168.137.1/"+info.getPic()).into(localAdapter.imageView);
+        Glide.with(context).load(NetworkUtils.IP+info.getPic()).into(localAdapter.imageView);
         localAdapter.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
