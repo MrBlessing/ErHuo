@@ -91,7 +91,8 @@ public class TransRecordAdapter extends RecyclerView.Adapter<TransRecordAdapter.
             public void onClick(final View view) {
                 //加载动画
                 Popup.processPopupWindow(view);
-                NetworkUtils.requestWithCookie(NetworkUtils.SELLOUT + data.get(i).getGood_id(), new Callback() {
+                if( data.get(i)!=null)
+                    NetworkUtils.requestWithCookie(NetworkUtils.SELLOUT + data.get(i).getGood_id(), new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         networkFail();

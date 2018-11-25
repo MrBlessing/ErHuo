@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
@@ -25,27 +26,44 @@ import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
+import com.luck.picture.lib.tools.PictureFileUtils;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import yuol.secondary.market.erhuo.Adapter.SortRecyclerAdapter;
 import yuol.secondary.market.erhuo.R;
 import yuol.secondary.market.erhuo.Utils.ActivityCollector;
 import yuol.secondary.market.erhuo.Utils.InputMethod;
 import yuol.secondary.market.erhuo.Utils.LogUtil;
+import yuol.secondary.market.erhuo.Utils.NetworkUtils;
 import yuol.secondary.market.erhuo.Utils.Popup;
+import yuol.secondary.market.erhuo.Utils.ReleaseInfo;
 
 import static android.app.Activity.RESULT_OK;
 
 
 public class ReleaseFragment extends Fragment {
     private View view;
-    private RelativeLayout price;
-    private RelativeLayout sort;
-    private RelativeLayout number;
-    private RelativeLayout contact;
-    private RelativeLayout position;
+    private RelativeLayout price;//价格栏
+    private RelativeLayout sort;//分类栏
+    private RelativeLayout number;//新旧程度栏
+    private RelativeLayout contact;//联系方式栏
+    private RelativeLayout position;//交易地点栏
+    private EditText goodsName;
+    private EditText goodsContent;
+    private EditText goodsPromiss;
     private TextView showPrice;
     private TextView showSort;
     private TextView showCondition;
@@ -58,11 +76,16 @@ public class ReleaseFragment extends Fragment {
     private ImageView image4;
     private ImageView image5;
     private ImageView currentImage;
+    private Button submit;
+    private ReleaseInfo info;//储存发布的内容
+    private HashMap<Integer,String> pic ;//辅助识别图片
     private static final String TAG = "ReleaseFragment";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         context = ActivityCollector.currentActivity();
+        info = new ReleaseInfo();
+        pic = new HashMap<>();
         view = inflater.inflate(R.layout.fragment_release, container, false);
         findView();
         setEvent();
@@ -86,11 +109,85 @@ public class ReleaseFragment extends Fragment {
         image3 = view.findViewById(R.id.fragment_release_image3);
         image4 = view.findViewById(R.id.fragment_release_image4);
         image5 = view.findViewById(R.id.fragment_release_image5);
+        goodsName = view.findViewById(R.id.fragment_release_goods_name);
+        goodsContent = view.findViewById(R.id.fragment_release_goods_content);
+        goodsPromiss = view.findViewById(R.id.fragment_release_goods_promiss);
+        submit = view.findViewById(R.id.fragment_release_submit);
     }
 
     private void setEvent() {
         setClickEvent();
         setUploadImage();
+        submitEvent();
+    }
+
+    private void submitEvent() {
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                getAnotherData();
+                if(!info.isNull()) {
+                    //开启加载
+                    Popup.processPopupWindow(view);
+                    //添加内容
+                    MultipartBody.Builder builder = new MultipartBody.Builder()
+                            .setType(MultipartBody.FORM)
+                            .addFormDataPart("name",info.getName())
+                            .addFormDataPart("content",info.getContent())
+                            .addFormDataPart("price",info.getPrice())
+                            .addFormDataPart("oldprice",info.getOldPrice())
+                            .addFormDataPart("hide",info.getHide())
+                            .addFormDataPart("bargin",info.getBargin())
+                            .addFormDataPart("promise",info.getPromise())
+                            .addFormDataPart("payway",info.getPayway())
+                            .addFormDataPart("hownew",info.getHownew())
+                            .addFormDataPart("school",info.getSchool())
+                            .addFormDataPart("detailwhere",info.getDetailWhere())
+                            .addFormDataPart("contact",info.getContact())
+                            .addFormDataPart("chatway",info.getChatway())
+                            .addFormDataPart("catname",info.getCatName());
+                    LogUtil.d(TAG, info.getPic().size()+"");
+                    int i=1;
+                    //添加图片
+                    for(String fileName : info.getPic()){
+                        File file = new File(fileName);
+                        RequestBody body = RequestBody.create(MediaType.parse("application/octet-stream"),file);
+                        builder.addFormDataPart("pic"+i,fileName,body);
+                        i++;
+                    }
+                    NetworkUtils.requestByPostWithCookie(NetworkUtils.RELEASE, builder.build(), new Callback() {
+                            @Override
+                        public void onFailure(Call call, IOException e) {
+                            ActivityCollector.currentActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Popup.easyPopup.dismiss();
+                                    Toast.makeText(context, "上传失败", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            LogUtil.d(TAG,response.body().string());
+                            PictureFileUtils.deleteCacheDirFile(context);//删除文件缓存，在上传成功后使用
+                            ActivityCollector.currentActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Popup.easyPopup.dismiss();
+                                    Popup.hintPopupWindow(getView().getRootView(),"发布成功",3000);
+                                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.home_page_container,new ReleaseFragment()).commit();
+                                }
+                            });
+
+                        }
+                    });
+                }else {
+                    Popup.hintPopupWindow(view,"请输入完整内容",Popup.HINT_TIME);
+                }
+            }
+        });
     }
 
     private void setUploadImage() {
@@ -106,6 +203,7 @@ public class ReleaseFragment extends Fragment {
             @Override
             public boolean onLongClick(View view) {
                 imageView.setImageResource(R.drawable.add);
+                info.removePic(pic.get(imageView.getId()));
                 Toast.makeText(context, "删除成功", Toast.LENGTH_SHORT).show();
                 //将删除事件置为空
                 imageView.setOnLongClickListener(new View.OnLongClickListener() {
@@ -159,14 +257,18 @@ public class ReleaseFragment extends Fragment {
                     switch (group.getCheckedRadioButtonId()){
                         case R.id.popup_release_position_about_east :
                             text = "东校区/";
+                            info.setSchool("长江大学东校区");
                             break;
                         case R.id.popup_release_position_about_west :
                             text = "西校区/";
+                            info.setSchool("长江大学西校区");
                             break;
                         case R.id.popup_release_position_about_wuhan :
                             text = "武汉校区/";
+                            info.setSchool("武汉校区");
                             break;
                     }
+                    info.setDetailWhere(input.getText().toString());
                     String show = text +input.getText();
                     showPosition.setText(show);
                     //关闭弹窗
@@ -195,11 +297,23 @@ public class ReleaseFragment extends Fragment {
         Button submit = view_contact.findViewById(R.id.popup_release_contact_submit);
         final EditText input = view_contact.findViewById(R.id.popup_release_contact_inputContact);
         final RadioGroup group = view_contact.findViewById(R.id.popup_release_contact_way);
+        switch (group.getCheckedRadioButtonId()){
+            case R.id.popup_release_contact_way_QQ :
+                info.setContact("qq");
+                break;
+            case R.id.popup_release_contact_way_phone:
+                info.setContact("phone");
+                break;
+            case R.id.popup_release_contact_way_wechat:
+                info.setContact("wechat");
+                break;
+        }
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(!TextUtils.isEmpty(input.getText())){
                     showContact.setText(input.getText());
+                    info.setChatway(input.getText().toString());
                     Popup.easyPopup.dismiss();
                 }else {
                     Popup.hintPopupWindow(ReleaseFragment.this.view,  "请输入完整内容",Popup.HINT_TIME);
@@ -228,6 +342,7 @@ public class ReleaseFragment extends Fragment {
                 if(!TextUtils.isEmpty(inputNumber.getText())&&Integer.parseInt(inputNumber.getText().toString())<=10&&Integer.parseInt(inputNumber.getText().toString())>0){
                     Popup.easyPopup.dismiss();
                     showCondition.setText(inputNumber.getText()+"成新");
+                    info.setHownew(inputNumber.getText().toString());
                 }else {
                     Popup.hintPopupWindow(ReleaseFragment.this.view,  "请输入正确内容",Popup.HINT_TIME);
                 }
@@ -243,7 +358,7 @@ public class ReleaseFragment extends Fragment {
 
         //准备数据
         List<String> data = new ArrayList<>();
-        data.add("代步工具");data.add("家用电器");data.add("考研考证");data.add("学姐学长笔记");data.add("鞋服配饰");data.add("特长爱好");data.add("运动健身");data.add("二手书籍");data.add("电子数码");data.add("其他商品");
+        data.add("代步工具");data.add("家用电器");data.add("考研考证");data.add("学生笔记");data.add("鞋服配饰");data.add("特长爱好");data.add("运动健身");data.add("二手书籍");data.add("手机数码");data.add("其他商品");
         //设置RecyclerView
         LinearLayoutManager manager1 = new LinearLayoutManager(ActivityCollector.currentActivity());
         manager1.setOrientation(LinearLayoutManager.VERTICAL);
@@ -255,6 +370,7 @@ public class ReleaseFragment extends Fragment {
             @Override
             public void onItemClick(View view, int position, String data) {
                 showSort.setText(data);
+                info.setCatName(data);
                 ActivityCollector.currentActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -288,6 +404,9 @@ public class ReleaseFragment extends Fragment {
         });
 
         //设置view_price内部控件事件
+
+        //议价选择
+        final CheckBox discuss = view_price.findViewById(R.id.popup_release_price_discuss);
         Button submit = view_price.findViewById(R.id.popup_release_price_submit);
         final EditText inputPrice = view_price.findViewById(R.id.popup_release_price_inputPrice);
         final EditText inputFirstPrice = view_price.findViewById(R.id.popup_release_price_inputFirstPrice);
@@ -296,9 +415,16 @@ public class ReleaseFragment extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //判断复选框状态
+                if(discuss.isChecked())
+                    info.setBargin("0");
+                else
+                    info.setBargin("1");
                 //将输入的信息输入到主页面
                 if(!TextUtils.isEmpty(inputPrice.getText()) && !TextUtils.isEmpty(inputFirstPrice.getText())){
                     showPrice.setText("￥"+inputPrice.getText()+" / ￥"+inputFirstPrice.getText());
+                    info.setPrice(inputPrice.getText().toString());
+                    info.setOldPrice(inputFirstPrice.getText().toString());
                     Popup.easyPopup.dismiss();
                 }else {
                     //加载提示弹窗
@@ -328,7 +454,6 @@ public class ReleaseFragment extends Fragment {
                 .synOrAsy(true)//同步true或异步false 压缩 默认同步
                .forResult(PictureConfig.CHOOSE_REQUEST);//结果回调onActivityResult code
 
-        //PictureFileUtils.deleteCacheDirFile(MainActivity.this);//删除文件缓存，在上传成功后使用
     }
 
     @Override
@@ -341,6 +466,11 @@ public class ReleaseFragment extends Fragment {
                     List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
                     LocalMedia media =selectList.get(0);
                     if(media.isCompressed()){
+                        LogUtil.d(TAG,media.getCompressPath());
+                        //为了辨识是哪个图片做的一些处理
+                        pic.put(currentImage.getId(),media.getCompressPath());
+                        //储存图片
+                        info.addPic(media.getCompressPath());
                         Glide.with(context).load(media.getCompressPath()).into(currentImage);
                     }
                     // 例如 LocalMedia 里面返回三种path
@@ -354,5 +484,18 @@ public class ReleaseFragment extends Fragment {
                     break;
             }
         }
+    }
+
+    public void getAnotherData() {
+        //获取主页面三个大框的内容
+        info.setName(goodsName.getText().toString());
+        info.setContent(goodsContent.getText().toString());
+        info.setPromise(goodsPromiss.getText().toString());
+        //获取是否匿名
+        RadioGroup hide = view.findViewById(R.id.fragment_release_cryptonym);
+        if(hide.getCheckedRadioButtonId() == R.id.fragment_release_cryptonym_true)
+            info.setHide("1");
+        else
+            info.setHide("0");
     }
 }

@@ -18,6 +18,7 @@
             app:layout_scrollFlags="scroll|enterAlways|snap">
 
             <Button
+                android:id="@+id/fragment_release_submit"
                 android:layout_width="50dp"
                 android:layout_height="30dp"
                 android:text="发布"
@@ -50,6 +51,7 @@
                    android:layout_height="wrap_content">
 
                    <EditText
+                       android:id="@+id/fragment_release_goods_name"
                        android:layout_width="match_parent"
                        android:layout_height="50dp"
                        android:layout_centerInParent="true"
@@ -67,6 +69,7 @@
                </RelativeLayout>
 
                <EditText
+                   android:id="@+id/fragment_release_goods_content"
                    android:layout_width="match_parent"
                    android:layout_height="150dp"
                    android:layout_marginTop="10dp"
@@ -336,7 +339,7 @@
                     android:layout_height="1dp"
                     style="@style/Cutting_line"/>
                 <RelativeLayout
-                    android:id="@+id/fragment_release_cryptonym"
+
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -350,6 +353,7 @@
                         android:text="是否匿名" />
 
                     <RadioGroup
+                        android:id="@+id/fragment_release_cryptonym"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
@@ -372,6 +376,7 @@
                     android:layout_height="1dp"
                     style="@style/Cutting_line"/>
                 <EditText
+                    android:id="@+id/fragment_release_goods_promiss"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:layout_marginTop="10dp"
@@ -379,7 +384,7 @@
                     style="@style/main_EditText"
                     android:gravity="top"
                     android:maxLength="300"
-                    android:hint="售后承诺(300字以内)"/>
+                    android:hint="售后承诺(300字以内,可不填)"/>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"

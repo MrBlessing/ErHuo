@@ -37,6 +37,7 @@ public class NetworkUtils {
     public static final String MESSAGE = "http://192.168.137.1/erhuo/api/news.php";
     public static final String SELLOUT = "http://192.168.137.1/erhuo/api/sellout.php?good_id=";
     public static final String IP ="http://192.168.137.1/";
+    public static final String RELEASE = "http://192.168.137.1/erhuo/api/release.php";
     private static OkHttpClient client = new OkHttpClient();
 
 
@@ -98,7 +99,6 @@ public class NetworkUtils {
         return info;
     }
 
-
     //提前加载图片Json数据,并保存
     public static void loadJson(String Url, final String key) {
         //向服务器请求数据JSON
@@ -119,7 +119,6 @@ public class NetworkUtils {
             }
         });
     }
-
 
     //post请求
     public static void requestByPost(String url,RequestBody body,Callback callback){
@@ -158,10 +157,31 @@ public class NetworkUtils {
                     .build();
             client.newCall(request).enqueue(callback);
         }else{
+            if(Popup.easyPopup!=null){
+                Popup.easyPopup.dismiss();
+            }
             Popup.hintPopupWindow(ActivityCollector.currentActivity().getWindow().getDecorView().getRootView(),"请先登陆",1000);
         }
-
     }
+
+    public static  void requestByPostWithCookie(String url,RequestBody body,Callback callback){
+        String cookie = PreferenceManager.getDefaultSharedPreferences(ActivityCollector.currentActivity()).getString(KeyValueUtil.COOKIE,null);
+        if(!TextUtils.isEmpty(cookie)){
+            LogUtil.d("Template",cookie);
+            Request request = new Request.Builder()
+                    .url(url)
+                    .post(body)
+                    .header("Cookie",cookie)
+                    .build();
+            client.newCall(request).enqueue(callback);
+        }else{
+            if(Popup.easyPopup!=null){
+                Popup.easyPopup.dismiss();
+            }
+            Popup.hintPopupWindow(ActivityCollector.currentActivity().getWindow().getDecorView().getRootView(),"请先登陆",1000);
+        }
+    }
+
 
     private static void saveCookie(List<Cookie> cookies){
         StringBuilder cookieContent = new StringBuilder("");

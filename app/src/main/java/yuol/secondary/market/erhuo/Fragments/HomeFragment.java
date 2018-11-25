@@ -152,71 +152,71 @@ public class HomeFragment extends Fragment {
         car.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startCat("代步工具","代步工具");
+                startCat("代步工具");
             }
         });
         electric.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startCat("家用电器","家用电器");
+                startCat("家用电器");
             }
         });
         exam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startCat("考研考证","考研考证");
+                startCat("考研考证");
             }
         });
         note.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startCat("学习笔记","学姐学长笔记");
+                startCat("学生笔记");
             }
         });
         cloth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startCat("鞋服配饰","鞋服配饰");
+                startCat("鞋服配饰");
             }
         });
         hobby.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startCat("特长爱好","特长爱好");
+                startCat("特长爱好");
             }
         });
         sport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startCat("运动健身","运动健身");
+                startCat("运动健身");
             }
         });
         book.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startCat("二手书籍","二手书籍");
+                startCat("二手书籍");
             }
         });
         phone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startCat("手机数码","手机数码");
+                startCat("手机数码");
             }
         });
         other.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startCat("其他商品","其他商品");
+                startCat("其他商品");
             }
         });
     }
 
     //启动分类页面
-    private void startCat(String title,String value){
+    private void startCat(String value){
         Intent intent = new Intent(context, Template.class);
         intent.putExtra(KeyValueUtil.TEMPLATE_TAG,KeyValueUtil.TEMPLATE_GOODS_LIST);
         intent.putExtra(KeyValueUtil.CAT_NAME,value);
-        intent.putExtra(KeyValueUtil.TEMPLATE_TITLE,title);
+        intent.putExtra(KeyValueUtil.TEMPLATE_TITLE,value);
         startActivity(intent);
     }
 

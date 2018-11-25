@@ -174,7 +174,17 @@ public class Template extends BasedActivity {
                                         }
                                     }
                                 });
+                            }else {
+                                ActivityCollector.currentActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        //取消加载
+                                        loading.setVisibility(GONE);
+                                        Toast.makeText(Template.this, "没有发布商品", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                             }
+
                         }else{
                             Popup.hintPopupWindow(getWindow().getDecorView().getRootView(),"未知错误",1000);
                         }
